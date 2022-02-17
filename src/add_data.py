@@ -125,7 +125,17 @@ def add_grades(student, workbook):
     pass
 
 
+def add_extra_credit(student, workbook):
+    pass
+
+
+def add_grading_scale(student, workbook):
+    pass
+
+
 def add_data_main(student, workbook):
     add_courses(student, workbook)
     add_assignments(student, workbook)
     add_grades(student, workbook)
+    add_extra_credit(student, workbook)
+    add_grading_scale(student, workbook)
