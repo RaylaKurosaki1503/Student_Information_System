@@ -14,6 +14,7 @@ class Course:
         self.name = name
         self.credit = credit
         self.prof = prof
+        self.grading_scale = {}
         self.assignments = {}
         self.extra_credit = 0
         self.raw_grade = -1
@@ -37,6 +38,13 @@ class Course:
 
     def get_prof(self):
         return self.prof
+
+    def get_grading_scale(self):
+        return self.grading_scale
+
+    def add_to_grading_scale(self, letter, num):
+        self.grading_scale[letter] = num
+        pass
 
     def get_assignments(self):
         return self.assignments
