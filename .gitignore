@@ -130,4 +130,3 @@ dmypy.json
 *.iml
 *.xml
 *.xlsx
-src/rayla/excel.py
