@@ -1,3 +1,4 @@
+################################################################################
 """
 Author: Rayla Kurosaki
 
@@ -5,9 +6,11 @@ File: add_data.py
 
 Description:
 """
+################################################################################
 
-from Assignment import Assignment
-from Course import Course
+
+from assignment import Assignment
+from course import Course
 import rayla.excel
 
 
@@ -126,14 +129,32 @@ def add_grades(student, workbook):
 
 
 def add_extra_credit(student, workbook):
+    """
+
+    :param student:
+    :param workbook:
+    :return:
+    """
     pass
 
 
 def add_grading_scale(student, workbook):
+    """
+
+    :param student:
+    :param workbook:
+    :return:
+    """
     pass
 
 
-def add_data_main(student, workbook):
+def main(student, workbook):
+    """
+
+    :param student:
+    :param workbook:
+    :return:
+    """
     add_courses(student, workbook)
     add_assignments(student, workbook)
     add_grades(student, workbook)
