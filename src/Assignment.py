@@ -2,7 +2,7 @@
 """
 Author: Rayla Kurosaki
 
-File: Assignment.py
+File: assignment.py
 
 Description:
 """
@@ -64,7 +64,7 @@ class Assignment:
         """
         if "/" in grade_str:
             num, denom = grade_str.split(" / ")
-            grade_num = 100 * float(num) / float(denom)
+            grade_num = float("{:.2f}".format(100 * float(num) / float(denom)))
             self.lst_grades.append([grade_num, grade_str])
         else:
             self.lst_grades.append(grade_str)
