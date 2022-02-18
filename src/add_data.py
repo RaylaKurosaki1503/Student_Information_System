@@ -9,8 +9,8 @@ Description:
 ################################################################################
 
 
-from assignment import Assignment
-from course import Course
+from Assignment import Assignment
+from Course import Course
 import rayla.excel
 
 
