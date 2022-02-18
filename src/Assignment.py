@@ -13,6 +13,7 @@ class Assignment:
     """
 
     """
+
     def __init__(self, type, weight):
         """
 
@@ -47,13 +48,26 @@ class Assignment:
         """
         return self.lst_grades
 
-    def add_grade(self, grade):
+    def set_grades(self, grades):
         """
 
-        :param grade:
         :return:
         """
-        self.lst_grades.append(grade)
+        self.lst_grades = grades
+        pass
+
+    def add_grade(self, grade_str):
+        """
+
+        :param grade_str:
+        :return:
+        """
+        if "/" in grade_str:
+            num, denom = grade_str.split(" / ")
+            grade_num = 100 * float(num) / float(denom)
+            self.lst_grades.append([grade_num, grade_str])
+        else:
+            self.lst_grades.append(grade_str)
         pass
 
     def get_average(self):
@@ -96,16 +110,4 @@ class Assignment:
         self.drop_count = drop_count
         pass
 
-    pass
-
-
-def pp_print(assignment):
-    """
-
-    :param assignment:
-    :return:
-    """
-    print([assignment.get_type(), assignment.get_weight(),
-           assignment.get_grades(), assignment.get_average(),
-           assignment.get_drop_count()])
     pass
