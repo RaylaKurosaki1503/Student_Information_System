@@ -9,24 +9,10 @@ Description:
 ################################################################################
 
 
-from assignment import Assignment
-from course import Course
 import rayla.excel
-
-
-def is_correct_course(term, course_id, name, course):
-    """
-
-    :param term:
-    :param course_id:
-    :param name:
-    :param course:
-    :return:
-    """
-    c1 = term == course.get_term()
-    c2 = course_id == course.get_id()
-    c3 = name == course.get_name()
-    return c1 and c2 and c3
+from course import Course
+from assignment import Assignment
+import helper_functions as hf
 
 
 def add_courses(student, workbook):
@@ -78,7 +64,7 @@ def add_assignments(student, workbook):
             # Iterate through the courses the student has taken
             for course in student.get_courses():
                 # If this assignment belongs to this course
-                if is_correct_course(term, id + "." + sxn, name, course):
+                if hf.is_correct_course(term, id + "." + sxn, name, course):
                     # Create a new assignment type and add it to this course.
                     assignment = Assignment(type, float(weight))
                     course.add_assignment(type, assignment)
@@ -125,10 +111,15 @@ def add_grades(student, workbook):
                 # Iterate through the courses the student has taken
                 for course in student.get_courses():
                     # If this assignment belongs to this course
-                    if is_correct_course(term, id + "." + sxn, name, course):
+                    if hf.is_correct_course(term, id + "." + sxn, name, course):
                         # Add the grade to the correct assignment type
                         assignment = course.get_assignments()[type]
-                        assignment.add_grade(raw)
+                        if curved is not None:
+                            assignment.add_grade(curved)
+                            pass
+                        else:
+                            assignment.add_grade(raw)
+                            pass
                         break
                         pass
                     pass
@@ -160,7 +151,7 @@ def add_extra_credit(student, workbook):
             # Iterate through the courses the student has taken
             for course in student.get_courses():
                 # If this assignment belongs to this course
-                if is_correct_course(term, id + "." + sxn, name, course):
+                if hf.is_correct_course(term, id + "." + sxn, name, course):
                     # Set the extra credit the student has earned for that class
                     course.set_extra_credit(extra_credit)
                     break
@@ -202,7 +193,7 @@ def add_grading_scale(student, workbook):
             # Iterate through the courses the student has taken
             for course in student.get_courses():
                 # If this assignment belongs to this course
-                if is_correct_course(term, course_id, name, course):
+                if hf.is_correct_course(term, course_id, name, course):
                     # Set the grading scale for that class
                     course.set_grading_scale(grading_scale)
                     break
@@ -235,7 +226,7 @@ def add_drop_count(student, workbook):
             # Iterate through the courses the student has taken
             for course in student.get_courses():
                 # If this assignment belongs to this course
-                if is_correct_course(term, id + "." + sxn, name, course):
+                if hf.is_correct_course(term, id + "." + sxn, name, course):
                     assignments = course.get_assignments()
                     assignment = assignments[type]
                     assignment.set_drop_count(count)
