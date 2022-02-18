@@ -13,6 +13,7 @@ class Course:
     """
 
     """
+
     def __init__(self, term, id, name, credit, prof):
         """
 
@@ -79,14 +80,14 @@ class Course:
         """
         return self.grading_scale
 
-    def add_to_grading_scale(self, letter, num):
+    def set_grading_scale(self, grading_scale):
         """
 
         :param letter:
         :param num:
         :return:
         """
-        self.grading_scale[letter] = num
+        self.grading_scale = grading_scale
         pass
 
     def get_assignments(self):
@@ -204,15 +205,4 @@ class Course:
         """
         self.points = points
 
-    pass
-
-
-def pp_print(course):
-    """
-
-    :param course:
-    :return:
-    """
-    print([course.get_term(), course.get_id(), course.get_name(),
-           course.get_credit(), course.get_assignments()])
     pass
