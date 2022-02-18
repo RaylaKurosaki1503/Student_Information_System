@@ -2,7 +2,7 @@
 """
 Author: Rayla Kurosaki
 
-File: student.py
+File: Student.py
 
 Description:
 """
