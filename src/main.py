@@ -9,7 +9,7 @@ Description:
 ################################################################################
 
 
-from Student import Student
+from student import Student
 import add_data
 import rayla.excel
 
