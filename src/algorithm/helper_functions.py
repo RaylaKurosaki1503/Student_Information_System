@@ -24,7 +24,7 @@ def is_correct_course(term, course_id, name, course):
     return c1 and c2 and c3
 
 
-def format_num(num):
+def format_num_2(num):
     """
 
     :param num:
@@ -33,7 +33,21 @@ def format_num(num):
     return float("{:.2f}".format(num))
 
 
+def format_num_3(num):
+    """
+
+    :param num:
+    :return:
+    """
+    return float("{:.3f}".format(num))
+
+
 def is_numeric(string):
+    """
+
+    :param string:
+    :return:
+    """
     try:
         float(string)
         return True

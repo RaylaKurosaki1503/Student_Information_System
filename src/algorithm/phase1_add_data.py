@@ -2,7 +2,7 @@
 """
 Author: Rayla Kurosaki
 
-File: add_data.py
+File: phase1_add_data.py
 
 Description:
 """
@@ -10,9 +10,9 @@ Description:
 
 
 import rayla.excel
-from course import Course
-from assignment import Assignment
-import helper_functions as hf
+from algorithm import helper_functions as hf
+from constructors.course import Course
+from constructors.assignment import Assignment
 
 
 def add_courses(student, workbook):

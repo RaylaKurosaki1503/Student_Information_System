@@ -9,7 +9,7 @@ Description:
 ################################################################################
 
 
-import helper_functions as hf
+from algorithm import helper_functions as hf
 
 
 def calc_CS(course, lst):
@@ -42,12 +42,12 @@ def calc_CS(course, lst):
     if abs(sum_assignments - sum_exams) > 20:
         if sum_exams < sum_assignments:
             if course_grade > max_exam:
-                course.set_raw_grade(hf.format_num(max_exam))
+                course.set_raw_grade(hf.format_num_3(max_exam))
                 pass
             pass
         else:
             if course_grade > max_assignment:
-                course.set_raw_grade(hf.format_num(max_assignment))
+                course.set_raw_grade(hf.format_num_3(max_assignment))
                 pass
             pass
         pass
@@ -69,7 +69,7 @@ def calc_basic(course):
             pass
         pass
     if not (denom == 0):
-        course.set_raw_grade(hf.format_num(100 * num / denom))
+        course.set_raw_grade(hf.format_num_3(100 * num / denom))
     pass
 
 
@@ -101,7 +101,7 @@ def calc_UP2(course):
             pass
         pass
     if not (total_weight == 0):
-        course.set_raw_grade(hf.format_num(100 * course_grade / total_weight))
+        course.set_raw_grade(hf.format_num_3(100 * course_grade / total_weight))
     pass
 
 
@@ -125,7 +125,7 @@ def calc_VnW(course):
             denom += float(denom_str)
             pass
         # Re-compute the homework average grade
-        homework.set_average(hf.format_num(100 * num / denom))
+        homework.set_average(hf.format_num_3(100 * num / denom))
         course_grade, total_weight = 0, 0
         # Re-compute the course raw grade
         for assignment in course.get_assignments().values():
@@ -133,5 +133,5 @@ def calc_VnW(course):
             course_grade += assignment.get_weight() * assignment.get_average()
             pass
         # Re-set the course raw grade
-        course.set_raw_grade(hf.format_num(course_grade / total_weight))
+        course.set_raw_grade(hf.format_num_3(course_grade / total_weight))
     pass

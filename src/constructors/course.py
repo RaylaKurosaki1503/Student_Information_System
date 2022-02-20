@@ -27,6 +27,7 @@ class Course:
         self.id = id
         self.name = name
         self.credit = credit
+        self.earned_credit = 0
         self.prof = prof
         self.grading_scale = {}
         self.assignments = {}
@@ -34,7 +35,7 @@ class Course:
         self.raw_grade = -1
         self.letter_grade = "n/a"
         self.final_grade = "n/a"
-        self.gpa = -1
+        # self.gpa = -1
         self.points = -1
         pass
 
@@ -66,6 +67,21 @@ class Course:
         """
         return self.credit
 
+    def get_earned_credit(self):
+        """
+
+        :return:
+        """
+        return self.earned_credit
+
+    def set_earned_credit(self, earned_credit):
+        """
+
+        :return:
+        """
+        self.earned_credit = earned_credit
+        pass
+
     def get_prof(self):
         """
 
@@ -83,8 +99,7 @@ class Course:
     def set_grading_scale(self, grading_scale):
         """
 
-        :param letter:
-        :param num:
+        :param grading_scale:
         :return:
         """
         self.grading_scale = grading_scale
@@ -98,6 +113,12 @@ class Course:
         return self.assignments
 
     def add_assignment(self, type, assignment):
+        """
+
+        :param type:
+        :param assignment:
+        :return:
+        """
         self.assignments[type] = assignment
         pass
 
@@ -174,21 +195,21 @@ class Course:
         self.final_grade = letter
         pass
 
-    def get_gpa(self):
-        """
-
-        :return:
-        """
-        return self.gpa
-
-    def set_gpa(self, gpa):
-        """
-
-        :param gpa:
-        :return:
-        """
-        self.gpa = gpa
-        pass
+    # def get_gpa(self):
+    #     """
+    #
+    #     :return:
+    #     """
+    #     return self.gpa
+    #
+    # def set_gpa(self, gpa):
+    #     """
+    #
+    #     :param gpa:
+    #     :return:
+    #     """
+    #     self.gpa = gpa
+    #     pass
 
     def get_points(self):
         """

@@ -2,16 +2,14 @@
 """
 Author: Rayla Kurosaki
 
-File: modify_data.py
+File: phase2_modify_data.py
 
 Description:
 """
 ################################################################################
 
-
-import special_calculations
+from algorithm import helper_functions as hf, special_calculations as sc
 import rayla.excel
-import helper_functions as hf
 
 
 def overwrite_final(student, workbook):
@@ -169,7 +167,12 @@ def calc_raw_grade(student):
                     pass
                 pass
             # Set the raw course grade
-            course.set_raw_grade(hf.format_num(course_grade / total_weight))
+            if total_weight == 0:
+                course.set_raw_grade("n/a")
+                pass
+            else:
+                course.set_raw_grade(hf.format_num_3(course_grade / total_weight))
+                pass
             pass
         # If the student has earned extra credit, add that amount to the raw
         # grade
@@ -196,25 +199,25 @@ def special_calc(student):
     CS3 = ["Homework", "Project"]
     for course in student.get_courses():
         if course.get_id() == "CSCI-141.02":
-            special_calculations.calc_CS(course, CS1)
+            sc.calc_CS(course, CS1)
             pass
         elif course.get_id() == "CSCI-142.01":
-            special_calculations.calc_CS(course, CS2)
+            sc.calc_CS(course, CS2)
             pass
         elif course.get_id() == "ENGL-314.01":
-            special_calculations.calc_basic(course)
+            sc.calc_basic(course)
             pass
         elif course.get_id() == "MATH-399.01":
-            special_calculations.calc_basic(course)
+            sc.calc_basic(course)
             pass
         elif course.get_id() == "PHYS-212.06":
-            special_calculations.calc_UP2(course)
+            sc.calc_UP2(course)
             pass
         elif course.get_id() == "CSCI-243.01":
-            special_calculations.calc_CS(course, CS3)
+            sc.calc_CS(course, CS3)
             pass
         elif course.get_id() == "PHYS-283.01":
-            special_calculations.calc_VnW(course)
+            sc.calc_VnW(course)
             pass
         pass
     pass
@@ -234,9 +237,11 @@ def raw_letter_grade(student):
             if course.get_id == "MATH-399.01":
                 if raw_grade >= 70:
                     course.set_letter_grade("S (Pass)")
+                    course.set_final_grade("S (Pass)")
                     pass
                 else:
                     course.set_letter_grade("F")
+                    course.set_final_grade("F")
                     pass
                 pass
             else:
@@ -246,14 +251,17 @@ def raw_letter_grade(student):
                 for letter, num in grading_scale.items():
                     if raw_grade >= num:
                         course.set_letter_grade(letter)
+                        course.set_final_grade(letter)
                         break
                         pass
                     pass
                     course.set_letter_grade("F")
+                    course.set_final_grade("F")
                 pass
             pass
         else:
             course.set_letter_grade(raw_grade)
+            course.set_final_grade(raw_grade)
             pass
         pass
     pass
@@ -295,52 +303,110 @@ def final_grade(student, workbook):
     pass
 
 
-def course_gpa_points(student):
-    gpa_points = {"A": 4.000, "A-": 3.667,
-                  "B+": 3.333, "B": 3.000, "B-": 2.667,
-                  "C+": 2.333, "C": 2.000, "C-": 1.667,
-                  "D+": 1.333, "D": 1.000, "D-": 1.000,
-                  "F": 0.000}
+def credit_earned(student):
+    """
+
+    :param student:
+    :return:
+    """
+    # iterate through each course
     for course in student.get_courses():
-        final_grade = course.get_final_grade()
-        credit = course.get_credit()
-        if (credit == 0) or (final_grade in ["SE", "NE"]):
-            course.set_gpa(0)
-            course.set_points(0)
+        # If the student did not fail the course
+        if not (course.get_final_grade() in ["F", "NE"]):
+            # Set the number of earned credits for that course
+            course.set_earned_credit(course.get_credit())
+            pass
+        pass
+    pass
+
+
+def course_gpa_points(student):
+    """
+
+    :param student:
+    :return:
+    """
+    # Initialize a diction ary of (letter grade, gpa) pairs
+    gpa_points = {"A": hf.format_num_3(12/3),
+                  "A-": hf.format_num_3(11/3),
+                  "B+": hf.format_num_3(10/3),
+                  "B": hf.format_num_3(9/3),
+                  "B-": hf.format_num_3(8/3),
+                  "C+": hf.format_num_3(7/3),
+                  "C": hf.format_num_3(6/3),
+                  "C-": hf.format_num_3(5/3),
+                  "D+": hf.format_num_3(4/3),
+                  "D": hf.format_num_3(3/3),
+                  "D-": hf.format_num_3(3/3),
+                  "F": hf.format_num_3(0/3)
+                  }
+    # iterate through each course
+    for course in student.get_courses():
+        if course.get_final_grade() == "n/a":
+            course.set_points("n/a")
             pass
         else:
-            course.set_gpa(gpa_points[final_grade])
-            course.set_points(gpa_points[final_grade] * course.get_credit())
+            # Get the final grade and the number of credits earned
+            final_grade = course.get_final_grade()
+            earned_credit = course.get_earned_credit()
+            # If the number of credits earned is 0 or if the final grade is SE/NE
+            if (earned_credit == 0) or (final_grade in ["SE", "NE"]):
+                # Set the points earned for that course to be 0
+                # course.set_gpa(hf.format_num_3(0/3))
+                course.set_points(hf.format_num_3(0/3))
+                pass
+            # If
+            else:
+                # course.set_gpa(gpa_points[final_grade])
+                num = gpa_points[final_grade] * course.get_credit()
+                course.set_points(hf.format_num_3(num))
+                pass
             pass
         pass
     pass
 
 
 def student_gpa_points(student):
+    """
+
+    :param student:
+    :return:
+    """
     sum_credits, sum_points = 0.0, 0.0
     term_credits, term_points = 0.0, 0.0
     current_term = ""
     for course in student.get_courses():
-        course_credit = course.get_credit()
-        course_points = course.get_points()
-        term = course.get_term()
-        if current_term == "":
-            current_term = term
-        if not (term == current_term):
-            student.add_to_gpa_history(term, term_points / term_credits)
-            current_term = term
-            term_credits = course_credit
-            term_points = course_points
+        if not (course.get_final_grade() == "n/a"):
+            if course.get_final_grade() in ["SE", "PE", "UE"]:
+                course_credit = 0
+                course_points = 0
+                pass
+            else:
+                course_points = course.get_points()
+                course_credit = course.get_earned_credit()
+                pass
+            term = course.get_term()
+            if current_term == "":
+                current_term = term
+            if not (term == current_term):
+                term_gpa = float("{:.2f}".format(term_points / term_credits))
+                student.add_to_gpa_history(current_term, term_gpa)
+                current_term = term
+                term_credits = course_credit
+                term_points = course_points
+                pass
+            else:
+                term_credits += course_credit
+                term_points += course_points
+                pass
+            sum_credits += course_credit
+            sum_points += course_points
             pass
-        else:
-            term_credits += course_credit
-            term_points += course_points
-            pass
-        sum_credits += course_credit
-        sum_points += course_points
         pass
-    student.add_to_gpa_history(current_term, term_points / term_credits)
-    student.set_gpa(sum_points / sum_credits)
+    term_gpa = float("{:.2f}".format(term_points / term_credits))
+    student.add_to_gpa_history(current_term, term_gpa)
+    student.set_gpa(float("{:.2f}".format(sum_points / sum_credits)))
+    pass
 
 
 def main(student, workbook):
@@ -350,6 +416,7 @@ def main(student, workbook):
     special_calc(student)
     raw_letter_grade(student)
     final_grade(student, workbook)
+    credit_earned(student)
     course_gpa_points(student)
     student_gpa_points(student)
     pass

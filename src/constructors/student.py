@@ -15,10 +15,6 @@ class Student:
     """
 
     def __init__(self, name):
-        """
-
-        :param name:
-        """
         self.name = name
         self.courses = []
         self.gpa = 0.0
