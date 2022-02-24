@@ -24,7 +24,7 @@ def add_courses(student, workbook):
     """
     # Get the worksheet that contains all the courses the student has taken
     ws = rayla.excel.get_worksheet(workbook, "courses")
-    # Set an index counter
+    # Counter to represent the index of the row, starting at 0
     i = 0
     # Iterate through each row of the worksheet
     for row in ws.values:
@@ -38,7 +38,7 @@ def add_courses(student, workbook):
             # Add that course to the student's database
             student.add_course(new_course)
             pass
-        # Increment the index counter by 1
+        # Move to the next row of the sheet
         i += 1
         pass
     pass
@@ -51,9 +51,10 @@ def add_assignments(student, workbook):
     :param workbook:
     :return:
     """
-    # Get the worksheet that contains all the types of assignments
+    # Get the worksheet that contains all the types of assignments for each
+    # course
     ws = rayla.excel.get_worksheet(workbook, "assignments")
-    # Set the index counter
+    # Counter to represent the index of the row, starting at 0
     i = 0
     # Iterate through each row of the worksheet
     for row in ws.values:
@@ -63,12 +64,11 @@ def add_assignments(student, workbook):
             term, id, sxn, name, type, weight = row
             # Iterate through the courses the student has taken
             for course in student.get_courses():
-                # If this assignment belongs to this course
+                # Find the correct course
                 if hf.is_correct_course(term, id + "." + sxn, name, course):
                     # Create a new assignment type and add it to this course.
                     assignment = Assignment(type, float(weight))
                     course.add_assignment(type, assignment)
-                    # Course.add_assignment(course, type, assignment)
                     # Special case
                     c4 = id + "." + sxn == "PHYS-320.01"
                     c5 = id + "." + sxn == "PHYS-321.01"
@@ -83,7 +83,7 @@ def add_assignments(student, workbook):
                     pass
                 pass
             pass
-        # Increment the index counter
+        # Move to the next row of the sheet
         i += 1
         pass
     pass
@@ -96,9 +96,10 @@ def add_grades(student, workbook):
     :param workbook:
     :return:
     """
-    # Get the worksheet that contains all the courses the student has taken
+    # Get the worksheet that contains all the grades of the assignments the
+    # student has done
     ws = rayla.excel.get_worksheet(workbook, "grades")
-    # Set an index counter
+    # Counter to represent the index of the row, starting at 0
     i = 0
     # Iterate through each row of the worksheet
     for row in ws.values:
@@ -110,13 +111,15 @@ def add_grades(student, workbook):
             if not ((raw is None) and (curved is None)):
                 # Iterate through the courses the student has taken
                 for course in student.get_courses():
-                    # If this assignment belongs to this course
+                    # Find the correct course
                     if hf.is_correct_course(term, id + "." + sxn, name, course):
-                        # Add the grade to the correct assignment type
+                        # Add the grade to the assignment type
                         assignment = course.get_assignments()[type]
+                        # If the grade is curved, add the curved grade
                         if curved is not None:
                             assignment.add_grade(curved)
                             pass
+                        # Otherwise, add the raw grade
                         else:
                             assignment.add_grade(raw)
                             pass
@@ -125,7 +128,7 @@ def add_grades(student, workbook):
                     pass
                 pass
             pass
-        # Increment the index counter by 1
+        # Move to the next row of the sheet
         i += 1
         pass
     pass
