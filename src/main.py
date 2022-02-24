@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 """
 Author: Rayla Kurosaki
 
@@ -6,7 +6,7 @@ File: main.py
 
 Description:
 """
-################################################################################
+###############################################################################
 
 
 import sys
@@ -37,13 +37,13 @@ def main():
     # Print the student's transcript
     phase3_print_transcript.main(stu)
 
-    for k, v in stu.get_gpa_history().items():
-        print(k, v)
-
-    for course in stu.get_courses():
-        print([course.get_term(), course.get_id(), course.get_name(),
-               course.get_raw_grade(), course.get_letter_grade(),
-               course.get_final_grade()])
+    # for k, v in stu.get_gpa_history().items():
+    #     #     print(k, v)
+    #     #
+    #     # for course in stu.get_courses():
+    #     #     print([course.get_term(), course.get_id(), course.get_name(),
+    #     #            course.get_raw_grade(), course.get_letter_grade(),
+    #     #            course.get_final_grade()])
     return
 
 
