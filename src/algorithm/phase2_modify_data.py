@@ -1,30 +1,58 @@
-################################################################################
 """
 Author: Rayla Kurosaki
 
 File: phase2_modify_data.py
 
-Description:
+Description: This file contains all the functionality of modifying data from
+             the Microsoft Excel Workbook/Spreadsheet to the student's database.
 """
-################################################################################
 
-from algorithm import helper_functions as hf, special_calculations as sc
 import rayla.excel
+from algorithm import helper_functions as hf
+from algorithm import special_calculations as sc
+import copy
 
 
-def overwrite_final(student, workbook):
+def modify_other(student):
     """
+    Performs some extra data manipulation for a specific professor teaching
+    specific courses.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    """
+    # Iterate through the courses
+    for course in student.get_courses():
+        # If a specific professor is teaching specific courses:
+        c1 = course.get_prof() == "Dawn Hollenbeck"
+        c2 = course.get_id() == "PHYS-320.01"
+        c3 = course.get_id() == "PHYS-321.01"
+        if c1 and (c2 or c3):
+            # Create a new assignment type that combines homeworks and quizzes
+            assignments = course.get_assignments()
+            lst = copy.deepcopy(assignments["Homework"].get_grades())
+            temp = copy.deepcopy(assignments["Quiz"].get_grades())
+            for e in temp:
+                lst.append(e)
+                pass
+            # Add this new type of assignment
+            assignment = assignments["Homework and Quiz"]
+            assignment.set_grades(lst)
+            pass
+        pass
+    pass
+
+
+def overwrite_final_exam(student, workbook):
+    """
+    Overwrites exam grades under certain conditions and for certain courses.
+
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the types of assignments
     ws = rayla.excel.get_worksheet(workbook, "overwrite_final_exam")
-    # Set the index counter
-    i = 0
     # Iterate through each row of the worksheet
-    for row in ws.values:
+    for i, row in enumerate(ws.values):
         # If it is not the first row
         if not (i == 0):
             # Unpack the row
@@ -97,17 +125,16 @@ def overwrite_final(student, workbook):
                     pass
                 pass
             pass
-        # Increment the index counter
-        i += 1
         pass
     pass
 
 
 def drop_grades(student):
     """
+    Drop the lowest X grades for certain courses. The number of grades to drop
+    also depend on the course.
 
-    :param student:
-    :return:
+    :param student: The student to manipulate.
     """
     # Iterate through each course
     for course in student.get_courses():
@@ -127,23 +154,22 @@ def drop_grades(student):
 
 def calc_raw_grade(student):
     """
+    Computes the raw grade for each course.
 
-    :param student:
-    :return:
+    :param student: The student to manipulate.
     """
     # Iterate through each course
     for course in student.get_courses():
         # If there is only one assignment type (Final Grade)
         if len(course.get_assignments()) == 1:
             # Set the raw course grade as the Final Grade
-            assignment = course.get_assignments()["Final Grade"]
-            grade = assignment.get_grades()[0]
+            grade = course.get_assignments()["Final Grade"].get_grades()[0]
             course.set_raw_grade(grade)
             pass
         else:
             # Initialize some floating numbers
             course_grade, total_weight = 0.0, 0.0
-            # Iterate through each (type, assignmnet) pair in the dictionary
+            # Iterate through each (type, assignment) pair in the dictionary
             for type, assignment in course.get_assignments().items():
                 # Get the list of grades
                 grades = assignment.get_grades()
@@ -161,27 +187,35 @@ def calc_raw_grade(student):
                     # grade
                     course_grade += grade * assignment.get_weight()
                     pass
-                else:  # If there are no grades
+                # If there are no grades
+                else:
                     # Set the average grade as "n/a"
                     assignment.set_average("n/a")
                     pass
                 pass
-            # Set the raw course grade
+            # If there is no weight
             if total_weight == 0:
-                course.set_raw_grade("n/a")
+                # Then there is no grade
+                grade = "n/a"
                 pass
             else:
-                course.set_raw_grade(hf.format_num_3(course_grade / total_weight))
+                # Otherwise, compute the raw grade
+                grade = hf.format_num_3(course_grade / total_weight)
                 pass
+            # Set the raw course grade
+            course.set_raw_grade(grade)
             pass
-        # If the student has earned extra credit, add that amount to the raw
-        # grade
+        # If the student has earned extra credit
         extra_credit = course.get_extra_credit()
         if not (extra_credit == 0):
+            # add that amount to the raw grade
             raw_grade = course.get_raw_grade() + extra_credit
+            # If the grade goes above 100
             if raw_grade > 100:
+                # limit the raw grade to 100
                 raw_grade = 100
                 pass
+            # Set the raw grade
             course.set_raw_grade(raw_grade)
             pass
         pass
@@ -190,60 +224,65 @@ def calc_raw_grade(student):
 
 def special_calc(student):
     """
+    Some courses/professors choose to have different method/algorithm to
+    determine how to calculate the student's raw grade.
 
-    :param student:
-    :return:
+    :param student: The student to manipulate.
     """
+    # Initialize some lists
     CS1 = ["Lab", "Homework", "Project", "Miscellaneous"]
     CS2 = ["Lab", "Homework", "Project"]
     CS3 = ["Homework", "Project"]
+    # Iterate through each course
     for course in student.get_courses():
-        if course.get_id() == "CSCI-141.02":
-            sc.calc_CS(course, CS1)
-            pass
-        elif course.get_id() == "CSCI-142.01":
-            sc.calc_CS(course, CS2)
-            pass
-        elif course.get_id() == "ENGL-314.01":
-            sc.calc_basic(course)
-            pass
-        elif course.get_id() == "MATH-399.01":
-            sc.calc_basic(course)
-            pass
-        elif course.get_id() == "PHYS-212.06":
-            sc.calc_UP2(course)
-            pass
-        elif course.get_id() == "CSCI-243.01":
-            sc.calc_CS(course, CS3)
-            pass
-        elif course.get_id() == "PHYS-283.01":
-            sc.calc_VnW(course)
-            pass
+        # Match teh course ID and compute the new raw grade for that course.
+        match course.get_id():
+            case "CSCI-141.02":
+                sc.calc_CS(course, CS1)
+            case "CSCI-142.01":
+                sc.calc_CS(course, CS2)
+            case "ENGL-314.01":
+                sc.calc_basic(course)
+            case "MATH-399.01":
+                sc.calc_basic(course)
+            case "PHYS-212.06":
+                sc.calc_UP2(course)
+            case "CSCI-243.01":
+                sc.calc_CS(course, CS3)
+            case "PHYS-283.01":
+                sc.calc_VnW(course)
         pass
     pass
 
 
 def raw_letter_grade(student):
     """
+    Compute the letter grade for each course based on the professors' grading
+    scale for that course.
 
-    :param student:
-    :return:
+    :param student: The student to manipulate.
     """
     # Iterate through each course
     for course in student.get_courses():
         # Get the raw grade for this course
         raw_grade = course.get_raw_grade()
+        # If the raw grade is numeric
         if hf.is_numeric(raw_grade):
+            # For the special case with Math Job Seminar
             if course.get_id == "MATH-399.01":
+                # If the numeric grade is above 70
                 if raw_grade >= 70:
+                    # The student passes
                     course.set_letter_grade("S (Pass)")
                     course.set_final_grade("S (Pass)")
                     pass
                 else:
+                    # Otherwise, the student fails.
                     course.set_letter_grade("F")
                     course.set_final_grade("F")
                     pass
                 pass
+            # For all other courses with a numeric raw grade
             else:
                 # Get the grading scale for this course
                 grading_scale = course.get_grading_scale()
@@ -253,13 +292,14 @@ def raw_letter_grade(student):
                         course.set_letter_grade(letter)
                         course.set_final_grade(letter)
                         break
-                        pass
                     pass
                     course.set_letter_grade("F")
                     course.set_final_grade("F")
                 pass
             pass
         else:
+            # For non-numeric raw grades, set the letter and final grades as the
+            # raw grade
             course.set_letter_grade(raw_grade)
             course.set_final_grade(raw_grade)
             pass
@@ -267,19 +307,17 @@ def raw_letter_grade(student):
     pass
 
 
-def final_grade(student, workbook):
+def overwrite_final_grade(student, workbook):
     """
+    Overwrites the final grade that best reflects the data from SIS.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the types of assignments
     ws = rayla.excel.get_worksheet(workbook, "overwrite_final_grade")
-    # Set the index counter
-    i = 0
     # Iterate through each row of the worksheet
-    for row in ws.values:
+    for i, row in enumerate(ws.values):
         # If it is not the first row
         if not (i == 0):
             # Unpack the row
@@ -288,26 +326,27 @@ def final_grade(student, workbook):
             for course in student.get_courses():
                 # If this assignment belongs to this course
                 if hf.is_correct_course(term, id + "." + sxn, name, course):
+                    # If there is no special condition
                     if condition is None:
+                        # Set the grade as the final grade
                         course.set_final_grade(grade)
                         pass
                     else:
+                        # Set the special condition as the final grade
                         course.set_final_grade(condition)
                         pass
                     pass
                 pass
             pass
-        # Increment the index counter
-        i += 1
         pass
     pass
 
 
 def credit_earned(student):
     """
+    Compute the amount of credit the student has earned for each course.
 
-    :param student:
-    :return:
+    :param student: The student to manipulate.
     """
     # iterate through each course
     for course in student.get_courses():
@@ -322,42 +361,45 @@ def credit_earned(student):
 
 def course_gpa_points(student):
     """
+    Computes the points for each course the student has taken.
 
-    :param student:
-    :return:
+    :param student: The student to manipulate.
     """
-    # Initialize a diction ary of (letter grade, gpa) pairs
-    gpa_points = {"A": hf.format_num_3(12/3),
-                  "A-": hf.format_num_3(11/3),
-                  "B+": hf.format_num_3(10/3),
-                  "B": hf.format_num_3(9/3),
-                  "B-": hf.format_num_3(8/3),
-                  "C+": hf.format_num_3(7/3),
-                  "C": hf.format_num_3(6/3),
-                  "C-": hf.format_num_3(5/3),
-                  "D+": hf.format_num_3(4/3),
-                  "D": hf.format_num_3(3/3),
-                  "D-": hf.format_num_3(3/3),
-                  "F": hf.format_num_3(0/3)
-                  }
+    # Initialize a dictionary of (letter grade, gpa) pairs
+    gpa_points = {
+        "A": hf.format_num_3(12 / 3),
+        "A-": hf.format_num_3(11 / 3),
+        "B+": hf.format_num_3(10 / 3),
+        "B": hf.format_num_3(9 / 3),
+        "B-": hf.format_num_3(8 / 3),
+        "C+": hf.format_num_3(7 / 3),
+        "C": hf.format_num_3(6 / 3),
+        "C-": hf.format_num_3(5 / 3),
+        "D+": hf.format_num_3(4 / 3),
+        "D": hf.format_num_3(3 / 3),
+        "D-": hf.format_num_3(3 / 3),
+        "F": hf.format_num_3(0 / 3)
+    }
     # iterate through each course
     for course in student.get_courses():
+        # If there is no grade for this course
         if course.get_final_grade() == "n/a":
+            # Then there is no GPA for this course
             course.set_points("n/a")
             pass
         else:
             # Get the final grade and the number of credits earned
             final_grade = course.get_final_grade()
             earned_credit = course.get_earned_credit()
-            # If the number of credits earned is 0 or if the final grade is SE/NE
+            # If the number of credits earned is 0 or if the final grade is
+            # SE/NE
             if (earned_credit == 0) or (final_grade in ["SE", "NE"]):
                 # Set the points earned for that course to be 0
-                # course.set_gpa(hf.format_num_3(0/3))
-                course.set_points(hf.format_num_3(0/3))
+                course.set_points(hf.format_num_3(0 / 3))
                 pass
-            # If
             else:
-                # course.set_gpa(gpa_points[final_grade])
+                # Otherwise, compute the number of points the student has
+                # earned for this course
                 num = gpa_points[final_grade] * course.get_credit()
                 course.set_points(hf.format_num_3(num))
                 pass
@@ -368,55 +410,97 @@ def course_gpa_points(student):
 
 def student_gpa_points(student):
     """
+    Compute the student's current GPA and record the student's semester/term
+    GPA.
 
-    :param student:
-    :return:
+    :param student: The student to manipulate.
     """
+    # Initialize cumulative variables
     sum_credits, sum_points = 0.0, 0.0
+    # Initialize term variables
     term_credits, term_points = 0.0, 0.0
+    # Initialize the current term
     current_term = ""
+    # iterate through the courses
     for course in student.get_courses():
+        # If there is a grade
         if not (course.get_final_grade() == "n/a"):
+            # If teh grade is SE/PE/UE
             if course.get_final_grade() in ["SE", "PE", "UE"]:
+                # Set the credit and points to 0
                 course_credit = 0
                 course_points = 0
                 pass
             else:
+                # Get the course points
                 course_points = course.get_points()
+                # Get the course earned credits
                 course_credit = course.get_earned_credit()
                 pass
+            # Get the term
             term = course.get_term()
+            # If this is a new term, and it is the first term
             if current_term == "":
+                # Set the current semester as the semester as
                 current_term = term
+            # If this is a new term, and it is not the first term
             if not (term == current_term):
-                term_gpa = float("{:.2f}".format(term_points / term_credits))
+                # Compute the term GPA
+                term_gpa = hf.format_num_2(term_points / term_credits)
+                # Add this record to the history of GPAs
                 student.add_to_gpa_history(current_term, term_gpa)
+                # Set the current semester as the semester as
                 current_term = term
+                # Re-initialize the term credits and term points
                 term_credits = course_credit
                 term_points = course_points
                 pass
             else:
+                # Cumulatively add the term credits and term points
                 term_credits += course_credit
                 term_points += course_points
                 pass
+            # Cumulatively add the cumulative credits and cumulative points
             sum_credits += course_credit
             sum_points += course_points
             pass
         pass
-    term_gpa = float("{:.2f}".format(term_points / term_credits))
+    # Compute the current term GPA
+    term_gpa = hf.format_num_2(term_points / term_credits)
+    # Add the current term GPA to the history of GPAs
     student.add_to_gpa_history(current_term, term_gpa)
-    student.set_gpa(float("{:.2f}".format(sum_points / sum_credits)))
+    # Set the student's cumulative GPA.
+    student.set_gpa(hf.format_num_2(sum_points / sum_credits))
     pass
 
 
 def main(student, workbook):
-    overwrite_final(student, workbook)
+    """
+    This function calls all the functions above to perform computations and
+    modify the student's database.
+
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
+    """
+    # Performs some extra data manipulation
+    modify_other(student)
+    # Overwrite the exam grades for some classes
+    overwrite_final_exam(student, workbook)
+    # Drop grades for some classes
     drop_grades(student)
+    # Compute the raw grade for all courses
     calc_raw_grade(student)
+    # Perform special calculations to calculate the raw grade for specific
+    # courses
     special_calc(student)
+    # Determine the letter grade based ont eh raw grade and the grading scale
     raw_letter_grade(student)
-    final_grade(student, workbook)
+    # Overwrite the final grade for each class
+    overwrite_final_grade(student, workbook)
+    # Compute the number of credits earned
     credit_earned(student)
+    # Compute course points
     course_gpa_points(student)
+    # Compute student's GPAs
     student_gpa_points(student)
     pass
