@@ -1,14 +1,11 @@
-################################################################################
 """
 Author: Rayla Kurosaki
 
 File: phase1_add_data.py
 
-Description:
+Description: This file contains all the functionality of adding data from the
+             Microsoft Excel Workbook/Spreadsheet to the student's database.
 """
-################################################################################
-
-
 import rayla.excel
 from algorithm import helper_functions as hf
 from constructors.course import Course
@@ -17,17 +14,16 @@ from constructors.assignment import Assignment
 
 def add_courses(student, workbook):
     """
+    Adds all the courses the student has taken from the Microsoft Excel
+    Workbook/Spreadsheet.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the courses the student has taken
     ws = rayla.excel.get_worksheet(workbook, "courses")
-    # Counter to represent the index of the row, starting at 0
-    i = 0
     # Iterate through each row of the worksheet
-    for row in ws.values:
+    for i, row in enumerate(ws.values):
         # If the row is not the first row
         if not (i == 0):
             # Unpack the row
@@ -38,26 +34,23 @@ def add_courses(student, workbook):
             # Add that course to the student's database
             student.add_course(new_course)
             pass
-        # Move to the next row of the sheet
-        i += 1
         pass
     pass
 
 
 def add_assignments(student, workbook):
     """
+    Adds all the types of assignments to the corresponding courses from the
+    Microsoft Excel Workbook/Spreadsheet.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the types of assignments for each
     # course
     ws = rayla.excel.get_worksheet(workbook, "assignments")
-    # Counter to represent the index of the row, starting at 0
-    i = 0
     # Iterate through each row of the worksheet
-    for row in ws.values:
+    for i, row in enumerate(ws.values):
         # If it is not the first row
         if not (i == 0):
             # Unpack the row
@@ -69,40 +62,40 @@ def add_assignments(student, workbook):
                     # Create a new assignment type and add it to this course.
                     assignment = Assignment(type, float(weight))
                     course.add_assignment(type, assignment)
-                    # Special case
-                    c4 = id + "." + sxn == "PHYS-320.01"
-                    c5 = id + "." + sxn == "PHYS-321.01"
-                    c6 = type == "Homework and Quiz"
-                    if (c4 or c5) and c6:
+                    # Special case for the courses taught by a specific
+                    # professor
+                    c4 = course.get_prof() == "Dawn Hollenbeck"
+                    c5 = course.get_id() == "PHYS-320.01"
+                    c6 = course.get_id() == "PHYS-321.01"
+                    c7 = type == "Homework and Quiz"
+                    if c4 and (c5 or c6) and c7:
+                        # Add Homeworks and Quizzes as separate categories
                         assignment = Assignment("Homework", float(weight))
                         course.add_assignment("Homework", assignment)
                         assignment = Assignment("Quiz", float(weight))
                         course.add_assignment("Quiz", assignment)
                         pass
                     break
-                    pass
                 pass
             pass
-        # Move to the next row of the sheet
-        i += 1
         pass
     pass
 
 
 def add_grades(student, workbook):
     """
+    Adds all the grades the student earned to the corresponding type of
+    assignment that corresponds to the corresponding courses from the
+    Microsoft Excel Workbook/Spreadsheet.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the grades of the assignments the
     # student has done
     ws = rayla.excel.get_worksheet(workbook, "grades")
-    # Counter to represent the index of the row, starting at 0
-    i = 0
     # Iterate through each row of the worksheet
-    for row in ws.values:
+    for i, row in enumerate(ws.values):
         # If the row is not the first row
         if not (i == 0):
             # Unpack the row
@@ -124,29 +117,25 @@ def add_grades(student, workbook):
                             assignment.add_grade(raw)
                             pass
                         break
-                        pass
                     pass
                 pass
             pass
-        # Move to the next row of the sheet
-        i += 1
         pass
     pass
 
 
 def add_extra_credit(student, workbook):
     """
+    Adds all the extra credit the student has earned to the corresponding
+    courses from the Microsoft Excel Workbook/Spreadsheet.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the courses the student has taken
     ws = rayla.excel.get_worksheet(workbook, "extra_credit")
-    # Set an index counter
-    i = 0
     # Iterate through each row of the worksheet
-    for row in ws.values:
+    for i, row in enumerate(ws.values):
         # If the row is not the first row
         if not (i == 0):
             # Unpack the row
@@ -156,31 +145,28 @@ def add_extra_credit(student, workbook):
                 # If this assignment belongs to this course
                 if hf.is_correct_course(term, id + "." + sxn, name, course):
                     # Set the extra credit the student has earned for that class
-                    course.set_extra_credit(extra_credit)
+                    course.add_extra_credit(extra_credit)
                     break
-                    pass
                 pass
             pass
-        # Increment the index counter by 1
-        i += 1
         pass
     pass
 
 
 def add_grading_scale(student, workbook):
     """
+    Adds the grading scale to the corresponding courses from the
+    Microsoft Excel Workbook/Spreadsheet.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
+    # Initialize all the letter grades in descend order
     letters = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-"]
     # Get the worksheet that contains all the courses the student has taken
     ws = rayla.excel.get_worksheet(workbook, "grading_scales")
-    # Set an index counter
-    i = 0
     # Iterate through each row of the worksheet
-    for row in ws.values:
+    for i, row in enumerate(ws.values):
         # If the row is not the first row
         if not (i == 0):
             # Unpack the row
@@ -189,10 +175,12 @@ def add_grading_scale(student, workbook):
             name = row[3]
             # Create the grading scale
             grading_scale = {}
-            for i in range(len(letters)):
-                num = row[i + 4]
+            for j in range(len(letters)):
+                num = row[j + 4]
                 if not (num is None):
-                    grading_scale[letters[i]] = float(num)
+                    grading_scale[letters[j]] = float(num)
+                    pass
+                pass
             # Iterate through the courses the student has taken
             for course in student.get_courses():
                 # If this assignment belongs to this course
@@ -200,28 +188,24 @@ def add_grading_scale(student, workbook):
                     # Set the grading scale for that class
                     course.set_grading_scale(grading_scale)
                     break
-                    pass
                 pass
             pass
-        # Increment the index counter by 1
-        i += 1
         pass
     pass
 
 
 def add_drop_count(student, workbook):
     """
+    Add the number of assignments to drop (if any) to the corresponding
+    courses from the Microsoft Excel Workbook/Spreadsheet.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the types of assignments
     ws = rayla.excel.get_worksheet(workbook, "drop_grades")
-    # Set the index counter
-    i = 0
     # Iterate through each row of the worksheet
-    for row in ws.values:
+    for i, row in enumerate(ws.values):
         # If it is not the first row
         if not (i == 0):
             # Unpack the row
@@ -234,48 +218,30 @@ def add_drop_count(student, workbook):
                     assignment = assignments[type]
                     assignment.set_drop_count(count)
                     break
-                    pass
                 pass
             pass
-        # Increment the index counter
-        i += 1
         pass
-    pass
-
-
-def add_other(student):
-    """
-
-    :param student:
-    :return:
-    """
-    for course in student.get_courses():
-        if course.get_id() in ["PHYS-320.01", "PHYS-321.01"]:
-            assignments = course.get_assignments()
-            hw_n_quiz = []
-            for grade in assignments["Homework"].get_grades():
-                hw_n_quiz.append(grade)
-                pass
-            for grade in assignments["Quiz"].get_grades():
-                hw_n_quiz.append(grade)
-                pass
-            assignment = assignments["Homework and Quiz"]
-            assignment.set_grades(hw_n_quiz)
     pass
 
 
 def main(student, workbook):
     """
+    This function calls all the functions above to data to the student's
+    database.
 
-    :param student:
-    :param workbook:
-    :return:
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
+    # Add courses
     add_courses(student, workbook)
+    # Add the types of assignments
     add_assignments(student, workbook)
+    # Add the student grades
     add_grades(student, workbook)
+    # Add extra credit
     add_extra_credit(student, workbook)
+    # Add grading scales
     add_grading_scale(student, workbook)
+    # Add the number of grades to drop
     add_drop_count(student, workbook)
-    add_other(student)
     pass
