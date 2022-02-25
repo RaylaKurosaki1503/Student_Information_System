@@ -1,13 +1,11 @@
-################################################################################
 """
 Author: Rayla Kurosaki
 
 File: special_calculations.py
 
-Description:
+Description: This file contains all the functionality of modifying data from
+             the Microsoft Excel Workbook/Spreadsheet to the student's database.
 """
-################################################################################
-
 
 from algorithm import helper_functions as hf
 
@@ -75,9 +73,11 @@ def calc_basic(course):
 
 def calc_UP2(course):
     """
+    Special calculations to compute the raw grade for University Physics II
+    taught by Tracy A. Davis. For this class, all quiz grades have their grades
+    raised by a set amount.
 
-    :param course:
-    :return:
+    :param course: University Physics II taught by Tracy A. Davis
     """
     course_grade, total_weight = 0.0, 0.0
     for type, assignment in course.get_assignments().items():
@@ -107,9 +107,11 @@ def calc_UP2(course):
 
 def calc_VnW(course):
     """
+    Special calculations to compute the raw grade for Vibrations and Waves
+    taught by Michael Richmond. For this class, the average homework grade is
+    calculated differently.
 
-    :param course:
-    :return:
+    :param course: Vibrations and Waves course taught by Michael Richmond
     """
     # Get the homework assignments
     homework = course.get_assignments()["Homework"]
