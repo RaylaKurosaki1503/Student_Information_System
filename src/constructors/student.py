@@ -32,7 +32,7 @@ class Student:
         """
         Gets the list of courses the student has taken.
 
-        :return: A list of courses the student has taken
+        :return: A list of courses the student has taken.
         """
         return self.courses
 
@@ -40,7 +40,7 @@ class Student:
         """
         Adds a new course to the list of courses the student has taken.
 
-        :param course: A new course the student has taken
+        :param course: A new course the student has taken.
         """
         self.courses.append(course)
         pass

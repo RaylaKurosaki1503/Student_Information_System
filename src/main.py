@@ -5,8 +5,9 @@ File: main.py
 
 Description: This file runs the entire program.
 """
-import sys
 
+import sys
+import logging
 import rayla.excel
 from algorithm import phase1_add_data
 from algorithm import phase2_modify_data
@@ -16,7 +17,7 @@ from constructors.student import Student
 
 def main():
     """
-    This function will ask the user to input the following
+    This program will ask the user to input the following
         1. Their name
         2. The absolute path to the Microsoft Excel Workbook/Spreadsheet
     Once the user finished the tasks above, it will create a student from the
@@ -26,25 +27,36 @@ def main():
     data into the student, one function to perform all the calculations, and one
     function to print the results in the form of a Transcript.
     """
-    # Creating/Initializing a student
-    # name = input("Enter your name: ")
+    # # Comment the following lines of code out
+    # level = logging.INFO
+    # fmt = '%(message)s'
+    # logging.basicConfig(level=level, format=fmt)
+
+    # Ask the user for their name.
     name = "Rayla Kurosaki"
+    # name = input("Enter your name: ")
+
+    # Creating/Initializing a student.
     student = Student(name)
-    # Ask the user to input the absolute path to the Excel workbook
-    # path = input("Enter the absolute path to the excel workbook: ")
-    path = sys.argv[1]
-    # Get the Excel Spreadsheet
+
+    # Ask the user to input the absolute path to the Excel workbook.
+    # path = sys.argv[1]
+    path = input("Enter the absolute path to the Excel workbook: ")
+
+    # Get the Excel Spreadsheet.
     workbook = rayla.excel.get_workbook(path)
-    # Add data to the student's database
+
+    # Add data to the student's database.
     phase1_add_data.main(student, workbook)
-    # Manipulate the student's database
+
+    # Manipulate the student's database.
     phase2_modify_data.main(student, workbook)
-    # Print the student's transcript
+
+    # Print the student's transcript.
     phase3_print_transcript.main(student)
-    return
+    pass
 
 
 if __name__ == '__main__':
     main()
-    # print(sys.argv)
     pass

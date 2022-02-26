@@ -23,7 +23,7 @@ def is_correct_course(term, course_id, name, course):
     c1 = term == course.get_term()
     c2 = course_id == course.get_id()
     c3 = name == course.get_name()
-    return c1 and c2 and c3
+    return c1 and c2 and c3\
 
 
 def format_num_2(num):

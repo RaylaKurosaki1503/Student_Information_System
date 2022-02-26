@@ -15,7 +15,7 @@ class Course:
         :param term: The semester/term that this course was taken.
         :param id: The course number ID.
         :param name: THe course name.
-        :param credit: The number of credits a student can earn for this course
+        :param credit: The number of credits a student can earn for this course.
         :param prof: The name of the professor that taught this course.
         """
         self.term = term
@@ -168,8 +168,8 @@ class Course:
     def set_letter_grade(self, letter):
         """
         Sets the letter grade the student has earned for this course.
+
         :param letter: The letter grade the student has earned for this course.
-        :return:
         """
         self.letter_grade = letter
         pass
@@ -186,7 +186,7 @@ class Course:
         """
         Sets the final grade the student has earned for this course.
 
-        :param letter: The final grade the student has earned for this course .
+        :param letter: The final grade the student has earned for this course.
         """
         self.final_grade = letter
         pass

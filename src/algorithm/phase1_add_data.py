@@ -20,18 +20,18 @@ def add_courses(student, workbook):
     :param student: The student to manipulate.
     :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
-    # Get the worksheet that contains all the courses the student has taken
+    # Get the worksheet that contains all the courses the student has taken.
     ws = rayla.excel.get_worksheet(workbook, "courses")
-    # Iterate through each row of the worksheet
+    # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
-        # If the row is not the first row
+        # If the row is not the first row.
         if not (i == 0):
-            # Unpack the row
+            # Unpack the row.
             term, id, sxn, name, ch, prof = row
             course_id = id + "." + sxn
-            # Create a new course from that row
+            # Create a new course from that row.
             new_course = Course(term, course_id, name, int(ch), prof)
-            # Add that course to the student's database
+            # Add that course to the student's database.
             student.add_course(new_course)
             pass
         pass
@@ -47,29 +47,29 @@ def add_assignments(student, workbook):
     :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the types of assignments for each
-    # course
+    # course.
     ws = rayla.excel.get_worksheet(workbook, "assignments")
-    # Iterate through each row of the worksheet
+    # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
-        # If it is not the first row
+        # If it is not the first row.
         if not (i == 0):
-            # Unpack the row
+            # Unpack the row.
             term, id, sxn, name, type, weight = row
-            # Iterate through the courses the student has taken
+            # Iterate through the courses the student has taken.
             for course in student.get_courses():
-                # Find the correct course
+                # Find the correct course.
                 if hf.is_correct_course(term, id + "." + sxn, name, course):
                     # Create a new assignment type and add it to this course.
                     assignment = Assignment(type, float(weight))
                     course.add_assignment(type, assignment)
                     # Special case for the courses taught by a specific
-                    # professor
+                    # professor.
                     c4 = course.get_prof() == "Dawn Hollenbeck"
                     c5 = course.get_id() == "PHYS-320.01"
                     c6 = course.get_id() == "PHYS-321.01"
                     c7 = type == "Homework and Quiz"
                     if c4 and (c5 or c6) and c7:
-                        # Add Homeworks and Quizzes as separate categories
+                        # Add Homeworks and Quizzes as separate categories.
                         assignment = Assignment("Homework", float(weight))
                         course.add_assignment("Homework", assignment)
                         assignment = Assignment("Quiz", float(weight))
@@ -92,27 +92,27 @@ def add_grades(student, workbook):
     :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
     # Get the worksheet that contains all the grades of the assignments the
-    # student has done
+    # student has done.
     ws = rayla.excel.get_worksheet(workbook, "grades")
-    # Iterate through each row of the worksheet
+    # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
-        # If the row is not the first row
+        # If the row is not the first row.
         if not (i == 0):
-            # Unpack the row
+            # Unpack the row.
             term, id, sxn, name, type, raw, curved, notes = row
-            # Exit the loop if there is no grade for the assignment
+            # Exit the loop if there is no grade for the assignment.
             if not ((raw is None) and (curved is None)):
-                # Iterate through the courses the student has taken
+                # Iterate through the courses the student has taken.
                 for course in student.get_courses():
-                    # Find the correct course
+                    # Find the correct course.
                     if hf.is_correct_course(term, id + "." + sxn, name, course):
-                        # Add the grade to the assignment type
+                        # Add the grade to the assignment type.
                         assignment = course.get_assignments()[type]
-                        # If the grade is curved, add the curved grade
+                        # If the grade is curved, add the curved grade.
                         if curved is not None:
                             assignment.add_grade(curved)
                             pass
-                        # Otherwise, add the raw grade
+                        # Otherwise, add the raw grade.
                         else:
                             assignment.add_grade(raw)
                             pass
@@ -132,19 +132,20 @@ def add_extra_credit(student, workbook):
     :param student: The student to manipulate.
     :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
-    # Get the worksheet that contains all the courses the student has taken
+    # Get the worksheet that contains all the courses the student has taken.
     ws = rayla.excel.get_worksheet(workbook, "extra_credit")
-    # Iterate through each row of the worksheet
+    # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
-        # If the row is not the first row
+        # If the row is not the first row.
         if not (i == 0):
-            # Unpack the row
+            # Unpack the row.
             term, id, sxn, name, extra_credit = row
-            # Iterate through the courses the student has taken
+            # Iterate through the courses the student has taken.
             for course in student.get_courses():
-                # If this assignment belongs to this course
+                # If this assignment belongs to this course.
                 if hf.is_correct_course(term, id + "." + sxn, name, course):
-                    # Set the extra credit the student has earned for that class
+                    # Set the extra credit the student has earned for that
+                    # class.
                     course.add_extra_credit(extra_credit)
                     break
                 pass
@@ -161,19 +162,19 @@ def add_grading_scale(student, workbook):
     :param student: The student to manipulate.
     :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
-    # Initialize all the letter grades in descend order
+    # Initialize all the letter grades in descend order.
     letters = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-"]
-    # Get the worksheet that contains all the courses the student has taken
+    # Get the worksheet that contains all the courses the student has taken.
     ws = rayla.excel.get_worksheet(workbook, "grading_scales")
-    # Iterate through each row of the worksheet
+    # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
-        # If the row is not the first row
+        # If the row is not the first row.
         if not (i == 0):
-            # Unpack the row
+            # Unpack the row.
             term = row[0]
             course_id = row[1] + "." + row[2]
             name = row[3]
-            # Create the grading scale
+            # Create the grading scale.
             grading_scale = {}
             for j in range(len(letters)):
                 num = row[j + 4]
@@ -181,11 +182,11 @@ def add_grading_scale(student, workbook):
                     grading_scale[letters[j]] = float(num)
                     pass
                 pass
-            # Iterate through the courses the student has taken
+            # Iterate through the courses the student has taken.
             for course in student.get_courses():
-                # If this assignment belongs to this course
+                # If this assignment belongs to this course.
                 if hf.is_correct_course(term, course_id, name, course):
-                    # Set the grading scale for that class
+                    # Set the grading scale for that class.
                     course.set_grading_scale(grading_scale)
                     break
                 pass
@@ -202,17 +203,17 @@ def add_drop_count(student, workbook):
     :param student: The student to manipulate.
     :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
-    # Get the worksheet that contains all the types of assignments
+    # Get the worksheet that contains all the types of assignments.
     ws = rayla.excel.get_worksheet(workbook, "drop_grades")
-    # Iterate through each row of the worksheet
+    # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
-        # If it is not the first row
+        # If it is not the first row.
         if not (i == 0):
-            # Unpack the row
+            # Unpack the row.
             term, id, sxn, name, type, count = row
-            # Iterate through the courses the student has taken
+            # Iterate through the courses the student has taken.
             for course in student.get_courses():
-                # If this assignment belongs to this course
+                # If this assignment belongs to this course.
                 if hf.is_correct_course(term, id + "." + sxn, name, course):
                     assignments = course.get_assignments()
                     assignment = assignments[type]
@@ -226,22 +227,27 @@ def add_drop_count(student, workbook):
 
 def main(student, workbook):
     """
-    This function calls all the functions above to data to the student's
+    The main function to call the functions above to add data to the student's
     database.
 
     :param student: The student to manipulate.
     :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
     """
-    # Add courses
+    # Add courses.
     add_courses(student, workbook)
-    # Add the types of assignments
+
+    # Add the types of assignments.
     add_assignments(student, workbook)
-    # Add the student grades
+
+    # Add the student grades.
     add_grades(student, workbook)
-    # Add extra credit
+
+    # Add extra credit.
     add_extra_credit(student, workbook)
-    # Add grading scales
+
+    # Add grading scales.
     add_grading_scale(student, workbook)
-    # Add the number of grades to drop
+
+    # Add the number of grades to drop.
     add_drop_count(student, workbook)
     pass
