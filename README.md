@@ -19,7 +19,7 @@ During my time at university, I wanted a way to compute my grades for the classe
 ## Installation
 While printing out the grades is a universal feature for this project, some professors may have different methods for computing the student's final grade. Thus, this project is tailored towards me and I will not be providing an installation guide.
 
-For experienced python programmers, you can simply clone the repository and run it in your own IDE. All files have documentation and most files have comments everywhere to explain how the algorithm works. With your python knowledge, you should be able to modify the code and personalize it to fit your needs.
+For experienced python programmers, you can simply clone the repository and run it in your preferred IDE. All files have documentation and most files have comments everywhere to explain how the algorithm works. With your python knowledge, you should be able to modify the code and personalize it to fit your needs.
 
 ## Usage
 I have provided two Microsoft Excel Workbooks/Spreadsheets, [sis_template](sis_template.xlsx) and [sis_example](sis_example.xlsx). The purpose of [sis_example](sis_example.xlsx) is to not only see how the data is organized and formatted, but to also see the output of the program when using that as the file to parse through. The [sis_template](sis_template.xlsx) file is a blank version of the example fie so a user can record their data.
