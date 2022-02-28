@@ -130,3 +130,4 @@ dmypy.json
 *.iml
 *.xml
 student_information_system.xlsx
+src/transcript.txt
