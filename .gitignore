@@ -129,5 +129,4 @@ dmypy.json
 .pyre/
 *.iml
 *.xml
-*.xlsx
-src/transcript.txt
+student_information_system.xlsx
