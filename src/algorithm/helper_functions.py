@@ -9,12 +9,13 @@ Description: This file contains easy-to-read functions for other built-in
 """
 
 
-def is_correct_course(term, course_id, name, course):
+def is_correct_course(term, course_id, sxn, name, course):
     """
     Determine if the selected course is the one to manipulate.
 
     :param term: The term/semester of the course to match.
-    :param course_id: The course ID number to match.
+    :param course_id: The course ID to match.
+    :param sxn: The course section to match.
     :param name: The name of the course to match.
     :param course: Course to test.
     :return: True if this course is the course we want to manipulate. False
@@ -22,8 +23,9 @@ def is_correct_course(term, course_id, name, course):
     """
     c1 = term == course.get_term()
     c2 = course_id == course.get_id()
-    c3 = name == course.get_name()
-    return c1 and c2 and c3
+    c3 = sxn == course.get_section()
+    c4 = name == course.get_name()
+    return c1 and c2 and c3 and c4
 
 
 def format_num_2(num):
