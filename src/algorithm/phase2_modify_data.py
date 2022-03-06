@@ -4,13 +4,15 @@ Author: Rayla Kurosaki
 File: phase2_modify_data.py
 
 Description: This file contains all the functionality of modifying data from
-             the Microsoft Excel Workbook/Spreadsheet to the student's database.
+             the Microsoft Excel Workbook/Spreadsheet to the student's
+             database.
 """
+
+import copy
 
 import rayla.excel
 from algorithm import helper_functions as hf
 from algorithm import special_calculations as sc
-import copy
 
 
 def modify_other(student):
@@ -27,7 +29,8 @@ def modify_other(student):
         c2 = course.get_id() == "PHYS-320.01"
         c3 = course.get_id() == "PHYS-321.01"
         if c1 and (c2 or c3):
-            # Create a new assignment type that combines homeworks and quizzes.
+            # Create a new assignment type that combines homeworks and
+            # quizzes.
             assignments = course.get_assignments()
             lst = copy.deepcopy(assignments["Homework"].get_grades())
             temp = copy.deepcopy(assignments["Quiz"].get_grades())
@@ -47,7 +50,8 @@ def overwrite_final_exam(student, workbook):
     Overwrites exam grades under certain conditions and for certain courses.
 
     :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
+                     through.
     """
     # Get the worksheet that contains all the types of assignments.
     ws = rayla.excel.get_worksheet(workbook, "overwrite_final_exam")
@@ -60,9 +64,9 @@ def overwrite_final_exam(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if hf.is_correct_course(term, id + "." + sxn, name, course):
+                if hf.is_correct_course(term, id, sxn, name, course):
                     # If the course was University Physics 1.
-                    if course.get_id() == "PHYS-211.04":
+                    if course.get_id() == "PHYS-211":
                         # Get the exams.
                         exams = course.get_assignments()["Exam"]
                         # Get all the exam grades but the final exam and sort
@@ -71,11 +75,11 @@ def overwrite_final_exam(student, workbook):
                         exam_grades = sorted(exam_grades, key=lambda x: x[0])
                         # Get the final exam grade.
                         final_exam_grade = exams.get_grades()[-1]
-                        # If the final exam grade is higher than the lowest exam
-                        # grade.
+                        # If the final exam grade is higher than the lowest
+                        # exam grade.
                         if final_exam_grade[0] > exam_grades[0][0]:
-                            # Replace the lowest exam grade with the final exam
-                            # grade.
+                            # Replace the lowest exam grade with the final
+                            # exam grade.
                             exam_grades.pop(0)
                             exam_grades.append(final_exam_grade)
                             pass
@@ -84,7 +88,7 @@ def overwrite_final_exam(student, workbook):
                         exams.set_grades(exam_grades)
                         pass
                     # If the class was Vibrations and Waves.
-                    elif course.get_id() == "PHYS-283.01":
+                    elif course.get_id() == "PHYS-283":
                         # Get each exam.
                         exam1 = course.get_assignments()["Exam 1"]
                         exam2 = course.get_assignments()["Exam 2"]
@@ -131,8 +135,8 @@ def overwrite_final_exam(student, workbook):
 
 def drop_grades(student):
     """
-    Drop the lowest X grades for certain courses. The number of grades to drop
-    also depend on the course.
+    Drop the lowest X grades for certain courses. The number of grades to
+    drop also depend on the course.
 
     :param student: The student to manipulate.
     """
@@ -144,7 +148,8 @@ def drop_grades(student):
             drop = assignment.get_drop_count()
             if not (drop == 0):
                 # Drop the lowest n grades.
-                lst_grades = sorted(assignment.get_grades(), key=lambda x: x[0])
+                lst_grades = sorted(assignment.get_grades(),
+                                    key=lambda x: x[0])
                 course.get_assignments()[type].set_grades(lst_grades[drop:])
                 pass
             pass
@@ -183,8 +188,8 @@ def calc_raw_grade(student):
                     # Increase the total weight for raw course grade
                     # computation.
                     total_weight += assignment.get_weight()
-                    # Increase the raw course grade by the weighted assignment
-                    # grade.
+                    # Increase the raw course grade by the weighted
+                    # assignment grade.
                     course_grade += grade * assignment.get_weight()
                     pass
                 # If there are no grades.
@@ -298,8 +303,8 @@ def raw_letter_grade(student):
                 pass
             pass
         else:
-            # For non-numeric raw grades, set the letter and final grades as the
-            # raw grade.
+            # For non-numeric raw grades, set the letter and final grades as
+            # the raw grade.
             course.set_letter_grade(raw_grade)
             course.set_final_grade(raw_grade)
             pass
@@ -312,7 +317,8 @@ def overwrite_final_grade(student, workbook):
     Overwrites the final grade that best reflects the data from SIS.
 
     :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
+                     through.
     """
     # Get the worksheet that contains all the types of assignments.
     ws = rayla.excel.get_worksheet(workbook, "overwrite_final_grade")
@@ -325,7 +331,7 @@ def overwrite_final_grade(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if hf.is_correct_course(term, id + "." + sxn, name, course):
+                if hf.is_correct_course(term, id, sxn, name, course):
                     # If there is no special condition.
                     if condition is None:
                         # Set the grade as the final grade.
@@ -474,13 +480,56 @@ def student_gpa_points(student):
     pass
 
 
-def main(student, workbook):
+def modify_student_minors(student):
     """
-    The main function to call the functions above to perform computations and
-    modify the student's database.
+    Modify the student's minor(s).
 
     :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse through.
+    """
+    # Iterate through each minor.
+    for minor in student.get_minors().values():
+        # Get the prerequisite courses, required courses, and the electives
+        # for this minor.
+        prereq = minor.get_prereq()
+        req = minor.get_req()
+        electives = minor.get_electives()
+        # Iterate through each course the student took.
+        for course in student.get_courses():
+            # If this course is a prerequisite for the minor.
+            if course.get_id() in prereq:
+                # Overwrite the course from the minor with the course from
+                # the student's database.
+                prereq[course.get_id()] = course
+                pass
+            # If this course is a required course for the minor.
+            elif course.get_id() in req:
+                # Overwrite the course from the minor with the course from
+                # the student's database.
+                req[course.get_id()] = course
+                pass
+            # If this course is an elective for the minor.
+            elif course.get_id() in electives:
+                # Overwrite the course from the minor with the course from
+                # the student's database.
+                electives[course.get_id()] = course
+                pass
+            pass
+        # Remove all "empty" courses in the minor.
+        minor.filter()
+        # Compute the gpa for this minor.
+        minor.compute_gpa()
+        pass
+    pass
+
+
+def main(student, workbook):
+    """
+    The main function to call the functions above to perform computations
+    and modify the student's database.
+
+    :param student: The student to manipulate.
+    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
+                     through.
     """
     # Performs some extra data manipulation.
     modify_other(student)
@@ -498,7 +547,8 @@ def main(student, workbook):
     # courses.
     special_calc(student)
 
-    # Determine the letter grade based ont eh raw grade and the grading scale.
+    # Determine the letter grade based ont eh raw grade and the grading
+    # scale.
     raw_letter_grade(student)
 
     # Overwrite the final grade for each class.
@@ -512,4 +562,9 @@ def main(student, workbook):
 
     # Compute student's GPAs.
     student_gpa_points(student)
+
+    # Modify the Major(s)'s courses.
+
+    # Modify the Minor(s)'s courses.
+    modify_student_minors(student)
     pass
