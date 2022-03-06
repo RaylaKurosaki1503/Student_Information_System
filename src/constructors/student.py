@@ -8,17 +8,22 @@ Description: This file contains all the functionality of a student.
 
 
 class Student:
-    def __init__(self, name):
+    def __init__(self, name, majors, minors):
         """
         Creates an instance of a student.
 
         :param name: Name of the student.
+        :param majors: A list of majors/degrees the student wants to earn or
+                       has earned.
+        :param minors: A list of minors the student wants to earn or has
+                       earned.
         """
         self.name = name
+        self.majors = majors
+        self.minors = minors
         self.courses = []
         self.gpa = 0.0
         self.gpa_history = {}
-        pass
 
     def get_name(self):
         """
@@ -64,7 +69,8 @@ class Student:
 
     def get_gpa_history(self):
         """
-        Get a dictionary which contains the student's GPA for each term/semester.
+        Get a dictionary which contains the student's GPA for each
+        term/semester.
 
         :return: A dictionary which contains the student's GPA for each
                  term/semester.
@@ -81,11 +87,44 @@ class Student:
         self.gpa_history[term] = gpa
         pass
 
-    def print_student(self):
+    def print_student(self, file):
         """
         Pretty prints the student's basic info.
+
+        :param file: A file to write on.
         """
-        print(f"Name: {self.name}")
+        # Print the student's name
+        file.write(f"Name: {self.name}\n")
+        # Print the student's degree(s).
+        for major in self.majors:
+            file.write(f"Major: name (degree_level) [GPA]\n")
+            file.write(f"\tSatisfied: True/False\n")
+            pass
+        # Print the student's minor(s).
+        for minors in self.minors:
+            file.write(f"Minor: name [GPA]\n")
+            file.write(f"\tSatisfied: True/False\n")
+            pass
+        # Print a new line to separate the student's info from the
+        # transcript.
+        file.write("\n")
         pass
 
     pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
