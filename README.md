@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/RaylaKurosaki1503/Student_Information_System">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -10,7 +10,7 @@
   <p align="center">
     The main use of this project is to compute the grades for the past and current classes I have taken at my university and print them in an easy to read format.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/RaylaKurosaki1503/Student_Information_System"><strong>Explore the docs »</strong></a>
   </p>
 </div>
 
