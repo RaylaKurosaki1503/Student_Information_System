@@ -28,9 +28,8 @@ def add_courses(student, workbook):
         if not (i == 0):
             # Unpack the row.
             term, id, sxn, name, ch, prof = row
-            course_id = id + "." + sxn
             # Create a new course from that row.
-            new_course = Course(term, course_id, name, int(ch), prof)
+            new_course = Course(term, id, sxn, name, int(ch), prof)
             # Add that course to the student's database.
             student.add_course(new_course)
             pass
@@ -58,15 +57,15 @@ def add_assignments(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # Find the correct course.
-                if hf.is_correct_course(term, id + "." + sxn, name, course):
+                if hf.is_correct_course(term, id, sxn, name, course):
                     # Create a new assignment type and add it to this course.
                     assignment = Assignment(type, float(weight))
                     course.add_assignment(type, assignment)
                     # Special case for the courses taught by a specific
                     # professor.
                     c4 = course.get_prof() == "Dawn Hollenbeck"
-                    c5 = course.get_id() == "PHYS-320.01"
-                    c6 = course.get_id() == "PHYS-321.01"
+                    c5 = course.get_id() == "PHYS-320"
+                    c6 = course.get_id() == "PHYS-321"
                     c7 = type == "Homework and Quiz"
                     if c4 and (c5 or c6) and c7:
                         # Add Homeworks and Quizzes as separate categories.
@@ -105,8 +104,9 @@ def add_grades(student, workbook):
                 # Iterate through the courses the student has taken.
                 for course in student.get_courses():
                     # Find the correct course.
-                    if hf.is_correct_course(term, id + "." + sxn, name, course):
+                    if hf.is_correct_course(term, id, sxn, name, course):
                         # Add the grade to the assignment type.
+                        # print(i)
                         assignment = course.get_assignments()[type]
                         # If the grade is curved, add the curved grade.
                         if curved is not None:
@@ -143,7 +143,7 @@ def add_extra_credit(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if hf.is_correct_course(term, id + "." + sxn, name, course):
+                if hf.is_correct_course(term, id, sxn, name, course):
                     # Set the extra credit the student has earned for that
                     # class.
                     course.add_extra_credit(extra_credit)
@@ -172,7 +172,8 @@ def add_grading_scale(student, workbook):
         if not (i == 0):
             # Unpack the row.
             term = row[0]
-            course_id = row[1] + "." + row[2]
+            id = row[1]
+            sxn = row[2]
             name = row[3]
             # Create the grading scale.
             grading_scale = {}
@@ -185,7 +186,7 @@ def add_grading_scale(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if hf.is_correct_course(term, course_id, name, course):
+                if hf.is_correct_course(term, id, sxn, name, course):
                     # Set the grading scale for that class.
                     course.set_grading_scale(grading_scale)
                     break
@@ -214,7 +215,7 @@ def add_drop_count(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if hf.is_correct_course(term, id + "." + sxn, name, course):
+                if hf.is_correct_course(term, id, sxn, name, course):
                     assignments = course.get_assignments()
                     assignment = assignments[type]
                     assignment.set_drop_count(count)
