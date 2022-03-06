@@ -47,7 +47,7 @@ During my time at university, I wanted a way to compute my grades for the classe
 - [x] Prints out the student's grades for the current and previous semesters/terms.
 - [ ] Prints out the student's transcript (grades and GPAs).
 - [ ] Check if the student has met their requirements to satisfy their degree(s).
-- [ ] Check if the student has met their requirements to satisfy their minor(s).
+- [x] Check if the student has met their requirements to satisfy their minor(s).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
