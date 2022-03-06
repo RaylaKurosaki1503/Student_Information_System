@@ -129,6 +129,5 @@ dmypy.json
 .pyre/
 *.iml
 *.xml
-student_information_system.xlsx
-src/transcript.txt
-sis_Rayla_Kurosaki.xlsx
+src/data/sis.xlsx
+src/data/transcript.txt
