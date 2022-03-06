@@ -16,11 +16,7 @@ from algorithm import phase2_modify_data
 from algorithm import phase3_print_transcript
 
 if __name__ == '__main__':
-    # # Lines of code to print the transcript in the console
-    # import logging
-    # logging.basicConfig(level=logging.INFO, format="%(message)s")
-
-    # Hard code the path from source root.
+    # Hardcode the path from source root.
     path = "data/sis.xlsx"
     # Check if the file exists
     if not file_exists(path):
