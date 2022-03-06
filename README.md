@@ -22,7 +22,7 @@ While printing out the grades is a universal feature for this project, some prof
 For experienced python programmers, you can simply clone the repository and run it in your preferred IDE. All files have documentation and most files have comments everywhere to explain how the algorithm works. With your python knowledge, you should be able to modify the code and personalize it to fit your needs.
 
 ## Usage
-I have provided two Microsoft Excel Workbooks/Spreadsheets, [sis_example](data/sis_example.xlsx) and [sis_template](data/sis_template.xlsx). The purpose of [sis_example](data/sis_example.xlsx) is to not only see how the data is organized and formatted, but to also see the output of the program when using that as the file to parse through. The [sis_template](data/sis_template.xlsx) file is a blank version of the example fie so a user can record their data. Please make sure to rename the file from "sis_template.xlsx" to "sis.xlsx" adn move that file to the data directory.
+I have provided two Microsoft Excel Workbooks/Spreadsheets, [sis_example](src/data/sis_example.xlsx) and [sis_template](src/data/sis_template.xlsx). The purpose of [sis_example](src/data/sis_example.xlsx) is to not only see how the data is organized and formatted, but to also see the output of the program when using that as the file to parse through. The [sis_template](src/data/sis_template.xlsx) file is a blank version of the example fie so a user can record their data. Please make sure to rename the file from "sis_template.xlsx" to "sis.xlsx" adn move that file to the data directory.
 
 ## License
 This project is licensed under the terms of the MIT license. See [LICENSE](LICENSE.txt) for license rights and limitations.
