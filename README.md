@@ -53,8 +53,14 @@ During my time at university, I wanted a way to compute my grades for the classe
 
 
 
-<!-- INSTALLATION -->
-## Installation
+<!-- GETTING STARTED -->
+## Getting Started
+
+
+### Prerequisites
+
+
+### Installation
 While printing out the grades is a universal feature for this project, some professors may have different methods for computing the student's final grade. Thus, this project is tailored towards me and I will not be providing an installation guide.
 
 For experienced python programmers, you can simply clone the repository and run it in your preferred IDE. All files have documentation and most files have comments everywhere to explain how the algorithm works. With your python knowledge, you should be able to modify the code and personalize it to fit your needs.
