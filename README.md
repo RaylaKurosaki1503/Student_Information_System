@@ -60,7 +60,7 @@ For experienced python programmers, you can simply clone the repository and run 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-I have provided two Microsoft Excel Workbooks/Spreadsheets, [sis_example](src/data/sis_example.xlsx) and [sis_template](src/data/sis_template.xlsx). The purpose of [sis_example](src/data/sis_example.xlsx) is to not only see how the data is organized and formatted, but to also see the output of the program when using that as the file to parse through. The [sis_template](src/data/sis_template.xlsx) file is a blank version of the example fie so a user can record their data. Please make sure to rename the file from "sis_template.xlsx" to "sis.xlsx" adn move that file to the data directory.
+I have provided two Microsoft Excel Workbooks/Spreadsheets, [sis_example](src/data/sis_example.xlsx) and [sis_template](src/data/sis_template.xlsx). The purpose of [sis_example](src/data/sis_example.xlsx) is to not only see how the data is organized and formatted, but to also see the output of the program when using that as the file to parse through. The [sis_template](src/data/sis_template.xlsx) file is a blank version of the example fie so a user can record their data. Please make sure to rename the file from "sis_template.xlsx" to "sis.xlsx" and move that file to the data directory.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
