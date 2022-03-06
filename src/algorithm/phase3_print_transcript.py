@@ -115,15 +115,18 @@ def print_row(f, data, lst):
     pass
 
 
-def print_to_file(data_to_print, max_len):
+def print_to_file(student, data_to_print, max_len):
     """
     Creates a text file to print the student's transcript on.
 
+    :param student: The student to manipulate.
     :param data_to_print: The data to print.
     :param max_len: The length of each column.
     """
     # Write onto a file.
-    with open("transcript.txt", "w") as f:
+    with open("data/transcript.txt", "w") as f:
+        # Print the student's basic info.
+        student.print_student(f)
         # Initialize the current term.
         curr_term = ""
         # Print the upper boundary.
@@ -163,5 +166,5 @@ def main(student):
     max_len = get_max_len(data_to_print)
 
     # Print the transcript.
-    print_to_file(data_to_print, max_len)
+    print_to_file(student, data_to_print, max_len)
     pass
