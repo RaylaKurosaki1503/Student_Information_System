@@ -10,6 +10,8 @@ Description: This file creates a student given the information the student has
 
 import rayla.excel
 from constructors.student import Student
+from minors.compsci import Compsci
+from minors.phys import Phys
 
 
 def create_new_student(workbook):
@@ -23,7 +25,11 @@ def create_new_student(workbook):
             case "Major":
                 majors[data] = degree
             case "Minor":
-                minors[data] = ""
+                match data:
+                    case "Physics":
+                        minors[data] = Phys()
+                    case "Computer Science":
+                        minors[data] = Compsci()
     return Student(name, majors, minors)
 
 
