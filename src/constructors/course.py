@@ -8,18 +8,20 @@ Description: This file contains all the functionality of a course.
 
 
 class Course:
-    def __init__(self, term, id, name, credit, prof):
+    def __init__(self, term, id, sxn, name, credit, prof):
         """
         Creates an instance of a course.
 
         :param term: The semester/term that this course was taken.
-        :param id: The course number ID.
+        :param id: The course ID.
+        :param sxn: The course section.
         :param name: THe course name.
         :param credit: The number of credits a student can earn for this course.
         :param prof: The name of the professor that taught this course.
         """
         self.term = term
         self.id = id
+        self.sxn = sxn
         self.name = name
         self.credit = credit
         self.earned_credit = 0
@@ -31,7 +33,6 @@ class Course:
         self.letter_grade = "n/a"
         self.final_grade = "n/a"
         self.points = -1
-        pass
 
     def get_term(self):
         """
@@ -43,11 +44,19 @@ class Course:
 
     def get_id(self):
         """
-        Gets the course number ID of this course.
+        Gets the course ID of this course.
 
-        :return: The course number ID of this course.
+        :return: The course ID of this course.
         """
         return self.id
+
+    def get_section(self):
+        """
+        Gets the course section of this course.
+
+        :return: The course section of this course.
+        """
+        return self.sxn
 
     def get_name(self):
         """
