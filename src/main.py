@@ -3,48 +3,38 @@ Author: Rayla Kurosaki
 
 File: main.py
 
-Description: This file runs the entire program.
+Description: This program will print the student's transcript given the input
+             file "sis.xlsx".
 """
-
 import sys
-import logging
+from os.path import exists as file_exists
+
 import rayla.excel
+from algorithm import phase0_create_student
 from algorithm import phase1_add_data
 from algorithm import phase2_modify_data
 from algorithm import phase3_print_transcript
-from constructors.student import Student
 
+if __name__ == '__main__':
+    # # Lines of code to print the transcript in the console
+    # import logging
+    # logging.basicConfig(level=logging.INFO, format="%(message)s")
 
-def main():
-    """
-    This program will ask the user to input the following
-        1. Their name
-        2. The absolute path to the Microsoft Excel Workbook/Spreadsheet
-    Once the user finished the tasks above, it will create a student from the
-    name, and it will get access to the Microsoft Excel Workbook/Spreadsheet.
-    After creating a student and getting access to the Microsoft Excel
-    Workbook/Spreadsheet, it will call one function to add all the relevant
-    data into the student, one function to perform all the calculations, and one
-    function to print the results in the form of a Transcript.
-    """
-    # # Comment the following lines of code out
-    # level = logging.INFO
-    # fmt = '%(message)s'
-    # logging.basicConfig(level=level, format=fmt)
-
-    # Ask the user for their name.
-    name = "Rayla Kurosaki"
-    # name = input("Enter your name: ")
-
-    # Creating/Initializing a student.
-    student = Student(name)
-
-    # Ask the user to input the absolute path to the Excel workbook.
-    # path = sys.argv[1]
-    path = input("Enter the absolute path to the Excel workbook: ")
+    # Hard code the path from source root.
+    path = "data/sis.xlsx"
+    # Check if the file exists
+    if not file_exists(path):
+        # Exits the program if the file does not exist.
+        print("Place your excel file in the data directory.\n"
+              "Make sure it is called \"sis.xlsx\"")
+        sys.exit(0)
+        pass
 
     # Get the Excel Spreadsheet.
     workbook = rayla.excel.get_workbook(path)
+
+    # Create a new student.
+    student = phase0_create_student.main(workbook)
 
     # Add data to the student's database.
     phase1_add_data.main(student, workbook)
@@ -54,9 +44,7 @@ def main():
 
     # Print the student's transcript.
     phase3_print_transcript.main(student)
-    pass
 
-
-if __name__ == '__main__':
-    main()
+    print("The transcript has been printed. "
+          "Look for \"transcript.txt\" in the data directory.")
     pass
