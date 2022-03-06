@@ -30,7 +30,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## About the Project
 During my time at university, I wanted a way to compute my grades for the classes I was taking at the time and the classes I have already taken. While there is a system my university has for this, there is an upside for me making this project. The reason is because some professors (at the time I initially wanted to do this project) don't actually put in the grades in the university's system. I relied on the university's system to keep track of my grades so if the professors don't update my grade in the university's system, then I can't tell if I am doing well in class. This has became less of an issue as I continued to study at university but I wanted to create this project in the case that it would happen again in the future. On a somewhat related note, some professors don't compute my grade normally and this needs to be computed manually since my university does not take this into considereation. This program, however, does takes that into consideration for those specific classes.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
