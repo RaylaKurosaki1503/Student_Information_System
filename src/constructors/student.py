@@ -33,6 +33,22 @@ class Student:
         """
         return self.name
 
+    def get_majors(self):
+        """
+        Gets the student's major(s).
+
+        :return: The student's major(s).
+        """
+        return self.majors
+
+    def get_minors(self):
+        """
+        Gets the student's minor(s).
+
+        :return: The student's minor(s).
+        """
+        return self.minors
+
     def get_courses(self):
         """
         Gets the list of courses the student has taken.
@@ -101,9 +117,9 @@ class Student:
             file.write(f"\tSatisfied: True/False\n")
             pass
         # Print the student's minor(s).
-        for minors in self.minors:
-            file.write(f"Minor: name [GPA]\n")
-            file.write(f"\tSatisfied: True/False\n")
+        for minor in self.minors.values():
+            file.write(f"Minor: {minor.get_name()} [{minor.get_gpa()}]\n")
+            file.write(f"\tSatisfied: {minor.is_satisfied()}\n")
             pass
         # Print a new line to separate the student's info from the
         # transcript.
@@ -111,20 +127,3 @@ class Student:
         pass
 
     pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
