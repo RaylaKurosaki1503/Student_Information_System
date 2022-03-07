@@ -6,16 +6,15 @@ File: main.py
 Description: This program will print the student's transcript given the input
              file "sis.xlsx".
 """
+
 import sys
 from os.path import exists as file_exists
 
 import rayla.excel
-from algorithm import phase0_create_student
-from algorithm import phase1_add_data
-from algorithm import phase2_modify_data
-from algorithm import phase3_print_transcript
+import algorithm as alg
 
-if __name__ == '__main__':
+
+def main():
     # Hardcode the path from source root.
     path = "data/sis.xlsx"
     # Check if the file exists
@@ -25,22 +24,21 @@ if __name__ == '__main__':
               "Make sure it is called \"sis.xlsx\"")
         sys.exit(0)
         pass
-
     # Get the Excel Spreadsheet.
     workbook = rayla.excel.get_workbook(path)
-
     # Create a new student.
-    student = phase0_create_student.main(workbook)
-
+    student = alg.phase0_main(workbook)
     # Add data to the student's database.
-    phase1_add_data.main(student, workbook)
-
+    alg.phase1_main(student, workbook)
     # Manipulate the student's database.
-    phase2_modify_data.main(student, workbook)
-
+    alg.phase2_main(student, workbook)
     # Print the student's transcript.
-    phase3_print_transcript.main(student)
-
+    alg.phase3_main(student)
     print("The transcript has been printed. "
           "Look for \"transcript.txt\" in the data directory.")
+    pass
+
+
+if __name__ == '__main__':
+    main()
     pass
