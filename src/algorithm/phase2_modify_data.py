@@ -11,8 +11,7 @@ Description: This file contains all the functionality of modifying data from
 import copy
 
 import rayla.excel
-from algorithm import helper_functions as hf
-from algorithm import special_calculations as sc
+import algorithm as alg
 
 
 def modify_other(student):
@@ -64,7 +63,7 @@ def overwrite_final_exam(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if hf.is_correct_course(term, id, sxn, name, course):
+                if alg.is_correct_course(term, id, sxn, name, course):
                     # If the course was University Physics 1.
                     if course.get_id() == "PHYS-211":
                         # Get the exams.
@@ -205,7 +204,7 @@ def calc_raw_grade(student):
                 pass
             else:
                 # Otherwise, compute the raw grade.
-                grade = hf.format_num_2(course_grade / total_weight)
+                grade = alg.format_num_2(course_grade / total_weight)
                 pass
             # Set the raw course grade.
             course.set_raw_grade(grade)
@@ -243,19 +242,19 @@ def special_calc(student):
         # Match the course ID and compute the new raw grade for that course.
         match course.get_id():
             case "CSCI-141.02":
-                sc.calc_CS(course, CS1)
+                alg.calc_CS(course, CS1)
             case "CSCI-142.01":
-                sc.calc_CS(course, CS2)
+                alg.calc_CS(course, CS2)
             case "ENGL-314.01":
-                sc.calc_basic(course)
+                alg.calc_basic(course)
             case "MATH-399.01":
-                sc.calc_basic(course)
+                alg.calc_basic(course)
             case "PHYS-212.06":
-                sc.calc_UP2(course)
+                alg.calc_UP2(course)
             case "CSCI-243.01":
-                sc.calc_CS(course, CS3)
+                alg.calc_CS(course, CS3)
             case "PHYS-283.01":
-                sc.calc_VnW(course)
+                alg.calc_VnW(course)
         pass
     pass
 
@@ -272,7 +271,7 @@ def raw_letter_grade(student):
         # Get the raw grade for this course.
         raw_grade = course.get_raw_grade()
         # If the raw grade is numeric.
-        if hf.is_numeric(raw_grade):
+        if alg.is_numeric(raw_grade):
             # For the special case with Math Job Seminar.
             if course.get_id == "MATH-399.01":
                 # If the numeric grade is above 70.
@@ -331,7 +330,7 @@ def overwrite_final_grade(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if hf.is_correct_course(term, id, sxn, name, course):
+                if alg.is_correct_course(term, id, sxn, name, course):
                     # If there is no special condition.
                     if condition is None:
                         # Set the grade as the final grade.
@@ -373,18 +372,18 @@ def course_gpa_points(student):
     """
     # Initialize a dictionary of (letter grade, gpa) pairs.
     gpa_points = {
-        "A": hf.format_num_3(12 / 3),
-        "A-": hf.format_num_3(11 / 3),
-        "B+": hf.format_num_3(10 / 3),
-        "B": hf.format_num_3(9 / 3),
-        "B-": hf.format_num_3(8 / 3),
-        "C+": hf.format_num_3(7 / 3),
-        "C": hf.format_num_3(6 / 3),
-        "C-": hf.format_num_3(5 / 3),
-        "D+": hf.format_num_3(4 / 3),
-        "D": hf.format_num_3(3 / 3),
-        "D-": hf.format_num_3(3 / 3),
-        "F": hf.format_num_3(0 / 3)
+        "A": alg.format_num_3(12 / 3),
+        "A-": alg.format_num_3(11 / 3),
+        "B+": alg.format_num_3(10 / 3),
+        "B": alg.format_num_3(9 / 3),
+        "B-": alg.format_num_3(8 / 3),
+        "C+": alg.format_num_3(7 / 3),
+        "C": alg.format_num_3(6 / 3),
+        "C-": alg.format_num_3(5 / 3),
+        "D+": alg.format_num_3(4 / 3),
+        "D": alg.format_num_3(3 / 3),
+        "D-": alg.format_num_3(3 / 3),
+        "F": alg.format_num_3(0 / 3)
     }
     # Iterate through each course.
     for course in student.get_courses():
@@ -401,13 +400,13 @@ def course_gpa_points(student):
             # SE/NE.
             if (earned_credit == 0) or (final_grade in ["SE", "NE"]):
                 # Set the points earned for that course to be 0.
-                course.set_points(hf.format_num_3(0 / 3))
+                course.set_points(alg.format_num_3(0 / 3))
                 pass
             else:
                 # Otherwise, compute the number of points the student has
                 # earned for this course.
                 num = gpa_points[final_grade] * course.get_credit()
-                course.set_points(hf.format_num_3(num))
+                course.set_points(alg.format_num_3(num))
                 pass
             pass
         pass
@@ -451,7 +450,7 @@ def student_gpa_points(student):
             # If this is a new term, and it is not the first term.
             if not (term == current_term):
                 # Compute the term GPA.
-                term_gpa = hf.format_num_2(term_points / term_credits)
+                term_gpa = alg.format_num_2(term_points / term_credits)
                 # Add this record to the history of GPAs.
                 student.add_to_gpa_history(current_term, term_gpa)
                 # Set the current term as the term.
@@ -471,11 +470,11 @@ def student_gpa_points(student):
             pass
         pass
     # Compute the current term GPA.
-    term_gpa = hf.format_num_2(term_points / term_credits)
+    term_gpa = alg.format_num_2(term_points / term_credits)
     # Add the current term GPA to the history of GPAs.
     student.add_to_gpa_history(current_term, term_gpa)
     # Set the student's cumulative GPA.
-    student.set_gpa(hf.format_num_2(sum_points / sum_credits))
+    student.set_gpa(alg.format_num_2(sum_points / sum_credits))
     pass
 
 
@@ -521,7 +520,7 @@ def modify_student_minors(student):
     pass
 
 
-def main(student, workbook):
+def phase2_main(student, workbook):
     """
     The main function to call the functions above to perform computations
     and modify the student's database.
@@ -532,38 +531,27 @@ def main(student, workbook):
     """
     # Performs some extra data manipulation.
     modify_other(student)
-
     # Overwrite the exam grades for some classes.
     overwrite_final_exam(student, workbook)
-
     # Drop grades for some classes.
     drop_grades(student)
-
     # Compute the raw grade for all courses.
     calc_raw_grade(student)
-
     # Perform special calculations to calculate the raw grade for specific
     # courses.
     special_calc(student)
-
     # Determine the letter grade based ont eh raw grade and the grading
     # scale.
     raw_letter_grade(student)
-
     # Overwrite the final grade for each class.
     overwrite_final_grade(student, workbook)
-
     # Compute the number of credits earned.
     credit_earned(student)
-
     # Compute course points.
     course_gpa_points(student)
-
     # Compute student's GPAs.
     student_gpa_points(student)
-
     # Modify the Major(s)'s courses.
-
     # Modify the Minor(s)'s courses.
     modify_student_minors(student)
     pass
