@@ -16,7 +16,8 @@ class Course:
         :param id: The course ID.
         :param sxn: The course section.
         :param name: THe course name.
-        :param credit: The number of credits a student can earn for this course.
+        :param credit: The number of credits a student can earn for this
+                       course.
         :param prof: The name of the professor that taught this course.
         """
         self.term = term
@@ -178,7 +179,8 @@ class Course:
         """
         Sets the letter grade the student has earned for this course.
 
-        :param letter: The letter grade the student has earned for this course.
+        :param letter: The letter grade the student has earned for this
+                       course.
         """
         self.letter_grade = letter
         pass
@@ -215,5 +217,6 @@ class Course:
         :param points: The points the student has earned for this course.
         """
         self.points = points
+        pass
 
     pass
