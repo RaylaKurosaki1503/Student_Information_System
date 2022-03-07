@@ -13,7 +13,7 @@ def is_correct_course(term, course_id, sxn, name, course):
     """
     Determine if the selected course is the one to manipulate.
 
-    :param term: The term/semester of the course to match.
+    :param term: The term of the course to match.
     :param course_id: The course ID to match.
     :param sxn: The course section to match.
     :param name: The name of the course to match.
