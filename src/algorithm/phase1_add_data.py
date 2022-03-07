@@ -6,6 +6,7 @@ File: phase1_add_data.py
 Description: This file contains all the functionality of adding data from the
              Microsoft Excel Workbook/Spreadsheet to the student's database.
 """
+
 import rayla.excel
 from algorithm import helper_functions as hf
 from constructors.course import Course
