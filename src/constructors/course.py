@@ -12,7 +12,7 @@ class Course:
         """
         Creates an instance of a course.
 
-        :param term: The semester/term that this course was taken.
+        :param term: The term that this course was taken.
         :param id: The course ID.
         :param sxn: The course section.
         :param name: THe course name.
@@ -36,9 +36,9 @@ class Course:
 
     def get_term(self):
         """
-        Gets the semester/term the course was taken.
+        Gets the term the course was taken.
 
-        :return: The semester/term the course was taken.
+        :return: The term the course was taken.
         """
         return self.term
 
