@@ -416,16 +416,15 @@ def course_gpa_points(student):
 
 def student_gpa_points(student):
     """
-    Compute the student's current GPA and record the student's semester/term
-    GPA.
+    Compute the student's current GPA and record the student's term GPA.
 
     :param student: The student to manipulate.
     """
     # Initialize cumulative variables.
     sum_credits, sum_points = 0.0, 0.0
-    # Initialize semester variables.
+    # Initialize term variables.
     term_credits, term_points = 0.0, 0.0
-    # Initialize the current semester.
+    # Initialize the current term.
     current_term = ""
     # Iterate through the courses.
     for course in student.get_courses():
@@ -443,26 +442,26 @@ def student_gpa_points(student):
                 # Get the course earned credits.
                 course_credit = course.get_earned_credit()
                 pass
-            # Get the semester.
+            # Get the term.
             term = course.get_term()
-            # If this is a new semester, and it is the first semester.
+            # If this is a new term, and it is the first term.
             if current_term == "":
-                # Set the current semester as the semester.
+                # Set the current term as the term.
                 current_term = term
-            # If this is a new semester, and it is not the first semester.
+            # If this is a new term, and it is not the first term.
             if not (term == current_term):
-                # Compute the semester GPA.
+                # Compute the term GPA.
                 term_gpa = hf.format_num_2(term_points / term_credits)
                 # Add this record to the history of GPAs.
                 student.add_to_gpa_history(current_term, term_gpa)
-                # Set the current semester as the semester.
+                # Set the current term as the term.
                 current_term = term
-                # Re-initialize the semester credits and semester points.
+                # Re-initialize the term credits and term points.
                 term_credits = course_credit
                 term_points = course_points
                 pass
             else:
-                # Cumulatively add the semester credits and semester points.
+                # Cumulatively add the term credits and term points.
                 term_credits += course_credit
                 term_points += course_points
                 pass
@@ -471,9 +470,9 @@ def student_gpa_points(student):
             sum_points += course_points
             pass
         pass
-    # Compute the current semester GPA.
+    # Compute the current term GPA.
     term_gpa = hf.format_num_2(term_points / term_credits)
-    # Add the current semester GPA to the history of GPAs.
+    # Add the current term GPA to the history of GPAs.
     student.add_to_gpa_history(current_term, term_gpa)
     # Set the student's cumulative GPA.
     student.set_gpa(hf.format_num_2(sum_points / sum_credits))
