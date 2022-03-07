@@ -43,21 +43,24 @@ class Phys(Minor):
         # Initialize the courses that are prerequisites for this minor.
         for id in dict_prereq:
             self.prereq[id] = None
+            pass
         # Initialize the courses that are required for this minor.
         for id in dict_req:
             self.req[id] = None
+            pass
         # Initialize the courses that are electives for this minor.
         for id in dict_electives:
             self.electives[id] = None
+            pass
         pass
 
     def is_satisfied_prereq(self):
         """
-        Determines if the student has passed the prerequisite courses for the
-        Physics minor.
+        Determines if the student has passed all the prerequisite courses for
+        the Physics minor.
 
-        :return: True if the student has passed all the prerequisite courses.
-                 False otherwise.
+        :return: True if the student has passed all the prerequisite courses
+                 for the Physics minor. False otherwise.
         """
         # List of grades that would not satisfy fulfilling the prerequisite
         lst1 = ["D+", "D", "D-", "F", "NE"]
@@ -83,11 +86,11 @@ class Phys(Minor):
 
     def is_satisfied_required(self):
         """
-        Determines if the student has passed the required courses for the
+        Determines if the student has passed all the required courses for the
         Physics minor.
 
-        :return: True if the student has passed all the required courses.
-                 False otherwise.
+        :return: True if the student has passed all the required courses for
+                 the Physics minor. False otherwise.
         """
         # List of grades that would not satisfy fulfilling the required course
         lst = ["F", "NE"]
@@ -109,7 +112,8 @@ class Phys(Minor):
 
         :return: True if the condition is satisfied. False otherwise.
         """
-        # List of grades that would not satisfy fulfilling the required course.
+        # List of grades that would not satisfy fulfilling the required
+        # course.
         lst = ["F", "NE"]
         # Courses from group A.
         lst_a = ["PHYS-315", "PHYS-316", "PHYS-365", "PHYS-377"]
@@ -140,6 +144,12 @@ class Phys(Minor):
             return False
 
     def is_satisfied(self):
+        """
+        Determines if the student has completed the Physics minor.
+
+        :return: True if the student has completed the Physics minor. False
+                 otherwise.
+        """
         cond1 = self.is_satisfied_prereq()
         cond2 = self.is_satisfied_required()
         cond3 = self.is_satisfied_electives()
