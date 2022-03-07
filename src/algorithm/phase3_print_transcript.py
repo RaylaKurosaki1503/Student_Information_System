@@ -7,8 +7,9 @@ Description: This file contains all the functionality of printing the student's
              transcript.
 """
 
-import logging
 import numpy as np
+
+import logging
 import copy
 
 
@@ -30,8 +31,9 @@ def get_data_to_print(student):
     for course in student.get_courses():
         # Add course data to the list of data to print.
         lst = np.array([
-            [course.get_term(), course.get_id(), course.get_name(),
-             course.get_raw_grade(), course.get_final_grade()]
+            [course.get_term(), course.get_id()+"."+course.get_section(),
+             course.get_name(), course.get_raw_grade(),
+             course.get_final_grade()]
         ])
         data_to_print = np.vstack((data_to_print, lst))
         pass
