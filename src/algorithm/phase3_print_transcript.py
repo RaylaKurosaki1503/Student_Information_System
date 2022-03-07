@@ -31,7 +31,7 @@ def get_data_to_print(student):
     for course in student.get_courses():
         # Add course data to the list of data to print.
         lst = np.array([
-            [course.get_term(), course.get_id()+"."+course.get_section(),
+            [course.get_term(), course.get_id() + "." + course.get_section(),
              course.get_name(), course.get_raw_grade(),
              course.get_final_grade()]
         ])
@@ -154,7 +154,7 @@ def print_to_file(student, data_to_print, max_len):
     pass
 
 
-def main(student):
+def phase3_main(student):
     """
     The main function to call the functions above to print the student's
     transcript.
@@ -163,10 +163,8 @@ def main(student):
     """
     # Get the data to print.
     data_to_print = get_data_to_print(student)
-
     # Get the column spacing.
     max_len = get_max_len(data_to_print)
-
     # Print the transcript.
     print_to_file(student, data_to_print, max_len)
     pass
