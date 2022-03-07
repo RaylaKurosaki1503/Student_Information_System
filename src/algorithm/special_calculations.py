@@ -10,7 +10,7 @@ Description: This file contains functions to compute the raw grade of certain
              raw grade.
 """
 
-from algorithm import helper_functions as hf
+import algorithm as alg
 
 
 def calc_CS(course, lst):
@@ -66,7 +66,7 @@ def calc_CS(course, lst):
             # If the raw grade is larger than the maximum exam average.
             if course_grade > max_exam:
                 # Set the raw grade to the maximum exam grade.
-                course.set_raw_grade(hf.format_num_3(max_exam))
+                course.set_raw_grade(alg.format_num_3(max_exam))
                 pass
             pass
         # If the minimum weighted average is the assignment weighted average.
@@ -74,7 +74,7 @@ def calc_CS(course, lst):
             # If the raw grade is larger than the maximum assignment average.
             if course_grade > max_assignment:
                 # Set the raw grade to the maximum assignment grade.
-                course.set_raw_grade(hf.format_num_3(max_assignment))
+                course.set_raw_grade(alg.format_num_3(max_assignment))
                 pass
             pass
         pass
@@ -106,7 +106,7 @@ def calc_basic(course):
     if not (denom == 0):
         # Divide the numerator by the denominator and then multiply by 100.
         # Then set this value as the raw grade for the course.
-        course.set_raw_grade(hf.format_num_3(100 * num / denom))
+        course.set_raw_grade(alg.format_num_3(100 * num / denom))
     pass
 
 
@@ -163,7 +163,7 @@ def calc_UP2(course):
     # If the new raw grade is not 0.
     if not (new_raw_grade == 0):
         # Set the new raw grade for this course.
-        course.set_raw_grade(hf.format_num_2(new_raw_grade))
+        course.set_raw_grade(alg.format_num_2(new_raw_grade))
         pass
     # Otherwise, set the raw grade as "n/a"
     else:
@@ -194,7 +194,7 @@ def calc_VnW(course):
             denom += float(denom_str)
             pass
         # Re-compute the homework average grade
-        homework.set_average(hf.format_num_3(100 * num / denom))
+        homework.set_average(alg.format_num_3(100 * num / denom))
         course_grade, total_weight = 0, 0
         # Re-compute the course raw grade
         for assignment in course.get_assignments().values():
@@ -202,5 +202,5 @@ def calc_VnW(course):
             course_grade += assignment.get_weight() * assignment.get_average()
             pass
         # Re-set the course raw grade
-        course.set_raw_grade(hf.format_num_3(course_grade / total_weight))
+        course.set_raw_grade(alg.format_num_3(course_grade / total_weight))
     pass
