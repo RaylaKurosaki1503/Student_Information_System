@@ -6,6 +6,8 @@ File: assignment.py
 Description: This file contains all the functionality of an assignment.
 """
 
+import algorithm as alg
+
 
 class Assignment:
     def __init__(self, type, weight):
@@ -58,18 +60,20 @@ class Assignment:
 
     def add_grade(self, grade_str):
         """
-        Adds the grade to the list of grades for this assignment. Also computes
-        the numerical value of the grade if the grade is in the form "p / q"
-        where p and q are real numbers.
+        Adds the grade to the list of grades for this assignment. Also
+        computes the numerical value of the grade if the grade is in the form
+        "p / q" where p and q are real numbers.
 
         :param grade_str: The grade as a string.
         """
         if "/" in grade_str:
             num, denom = grade_str.split(" / ")
-            grade_num = float("{:.2f}".format(100 * float(num) / float(denom)))
+            grade_num = alg.format_num_2(100 * float(num) / float(denom))
             self.lst_grades.append([grade_num, grade_str])
+            pass
         else:
             self.lst_grades.append(grade_str)
+            pass
         pass
 
     def get_average(self):
