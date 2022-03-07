@@ -5,7 +5,7 @@ File: minor.py
 
 Description:
 """
-from algorithm.helper_functions import format_num_3
+import algorithm as alg
 
 
 class Minor:
@@ -101,7 +101,7 @@ class Minor:
             total_points += course.get_points()
             pass
         # Compute the GPA for this minor.
-        self.gpa = format_num_3(total_points/total_earned_credits)
+        self.gpa = alg.format_num_3(total_points / total_earned_credits)
         pass
 
     pass
