@@ -62,7 +62,7 @@ While computing the students' final grades is something all professors do, there
 
 ### Installation
 1. To start, you need to clone this repository to your desktop.
-2. After you have created a copy of this project to your desktop, create a new python3.10 project using these existing files.
+2. After you have created a copy of this project to your desktop, create a new python project using these existing files.
 3. After creating the project, you will need to import some third-party modules/packages
 	1. numpy
 	2. openpyxl
