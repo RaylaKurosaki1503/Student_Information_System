@@ -16,7 +16,7 @@ import algorithm as alg
 
 def main():
     # Hardcode the path from source root.
-    path = "data/sis.xlsx"
+    path = "../data/sis.xlsx"
     # Check if the file exists
     if not file_exists(path):
         # Exits the program if the file does not exist.
