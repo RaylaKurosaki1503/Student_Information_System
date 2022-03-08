@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 *.iml
 *.xml
-src/data/sis.xlsx
-src/data/transcript.txt
+data/sis.xlsx
+data/transcript.txt
