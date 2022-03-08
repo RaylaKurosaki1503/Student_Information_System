@@ -23,7 +23,7 @@
 		<li><a href="#features">Features</a></li>
 		<li><a href="#getting-started">Getting Started</a>
 			<ul>
-				<li><a href="#prerequisites">Prerequisites</a></li>
+				<li><a href="#disclaimer">DISCLAIMER</a></li>
 				<li><a href="#installation">Installation</a></li>
 			</ul>
 		</li>
@@ -45,7 +45,7 @@ During my time at university, I wanted a way to compute my grades for the classe
 <!-- FEATURES -->
 ## Features
 - [x] Prints out the student's grades for the current and previous semesters/terms.
-- [ ] Prints out the student's transcript (grades and GPAs).
+- [x] Prints out the student's transcript (grades and GPAs).
 - [ ] Check if the student has met their requirements to satisfy their degree(s).
 - [x] Check if the student has met their requirements to satisfy their minor(s).
 
@@ -57,13 +57,16 @@ During my time at university, I wanted a way to compute my grades for the classe
 ## Getting Started
 
 
-### Prerequisites
-
+### DISCLAIMER
+While computing the students' final grades is something all professors do, there are some professors may have different methods for computing the student's final grade. In my case, s had a handful of professors who had a differemt method of calculating my final grade so I had to manually code the professors' method of computing my final grade for those classes. Thus, this project is tailored towards me and this program MAY NOT work for you. 
 
 ### Installation
-While printing out the grades is a universal feature for this project, some professors may have different methods for computing the student's final grade. Thus, this project is tailored towards me and I will not be providing an installation guide.
-
-For experienced python programmers, you can simply clone the repository and run it in your preferred IDE. All files have documentation and most files have comments everywhere to explain how the algorithm works. With your python knowledge, you should be able to modify the code and personalize it to fit your needs.
+1. To start, you need to clone this repository to your desktop.
+2. After you have created a copy of this project to your desktop, create a new python3.10 project using these existing files.
+3. After creating the project, you will need to import some third-party modules/packages
+	1. numpy
+	2. openpyxl
+4. Finally, make sure that the source folder (src) is marked as Sources Root.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
