@@ -58,7 +58,7 @@ During my time at university, I wanted a way to compute my grades for the classe
 
 
 ### DISCLAIMER
-While computing the students' final grades is something all professors do, there are some professors may have different methods for computing the student's final grade. In my case, s had a handful of professors who had a differemt method of calculating my final grade so I had to manually code the professors' method of computing my final grade for those classes. Thus, this project is tailored towards me and this program MAY NOT work for you. 
+While computing the students' final grades is something all professors do, there are some professors may have different methods for computing the student's final grade. In my case, I had a handful of professors who had a differemt method of calculating my final grade so I had to manually code the professors' method of computing my final grade for those classes. Thus, this project is tailored towards me and this program MAY NOT work for you. 
 
 ### Installation
 1. To start, you need to clone this repository to your desktop.
