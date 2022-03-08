@@ -126,7 +126,7 @@ def print_to_file(student, data_to_print, max_len):
     :param max_len: The length of each column.
     """
     # Write onto a file.
-    with open("data/transcript.txt", "w") as f:
+    with open("../data/transcript.txt", "w") as f:
         # Print the student's basic info.
         student.print_student(f)
         # Initialize the current term.
