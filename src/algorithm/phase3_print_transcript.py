@@ -134,7 +134,7 @@ def print_to_file(student, data_to_print, max_len):
         # Print the upper boundary.
         print_boundary(f, max_len)
         # iterate through each row to print.
-        for i, row in enumerate(data_to_print):
+        for row in data_to_print:
             # If this is a new term.
             if not (curr_term == row[0]):
                 # If the row is not the header.
