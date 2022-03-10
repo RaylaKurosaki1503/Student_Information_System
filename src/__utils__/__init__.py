@@ -1,7 +1,7 @@
 """
 Author: Rayla Kurosaki
 
-File: __utils__.py
+File: __init__.py
 
 Description: The initialization file for the package __utils__.
 """
