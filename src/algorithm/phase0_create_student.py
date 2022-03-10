@@ -8,7 +8,7 @@ Description: This file creates a student given the information the student has
              Workbook/Spreadsheet.
 """
 
-import rayla.excel
+import __utils__ as utils
 import constructors as struct
 import minors as minor
 
@@ -23,7 +23,7 @@ def create_new_student(workbook):
     :return: A student with their basic info.
     """
     # Get the worksheet that contains the student's basic info.
-    ws = rayla.excel.get_worksheet(workbook, "basic_info")
+    ws = utils.get_worksheet(workbook, "basic_info")
     # Initialize some variables.
     name, majors, minors = "", {}, {}
     # For each row in the spreadsheet.
