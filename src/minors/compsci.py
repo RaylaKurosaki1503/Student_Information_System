@@ -3,7 +3,8 @@ Author: Rayla Kurosaki
 
 File: compsci.py
 
-Description:
+Description: This file contains the functionality to represent the Computer
+             Science minor. The requirements have been updated on 2022/03/09.
 """
 from minors.minor import Minor
 
@@ -103,7 +104,7 @@ dict_electives = {
 class Compsci(Minor):
     def __init__(self):
         """
-        Create an instance of a Physics minor.
+        Create an instance of a Computer Science minor.
         """
         # Call the super class
         super().__init__("Computer Science")
@@ -138,15 +139,15 @@ class Compsci(Minor):
             if course.get_id() in ["CSCI-141", "CSCI-142", "MATH-181"]:
                 if course.get_final_grade() in lst1:
                     # Return False
-                    print(f"Prerequisites are not satisfied for the "
-                          f"{self.name} minor.")
+                    # print(f"Prerequisites are not satisfied for the "
+                    #       f"{self.name} minor.")
                     return False
                 pass
             # If the student did not get an F or better in this course
             else:
                 if course.get_final_grade() in lst2:
-                    print(f"Prerequisites are not satisfied for the "
-                          f"{self.name} minor.")
+                    # print(f"Prerequisites are not satisfied for the "
+                    #       f"{self.name} minor.")
                     return False
                 pass
             pass
@@ -166,8 +167,8 @@ class Compsci(Minor):
         for course in self.req.values():
             # If the student did not pass this course
             if course.get_final_grade() in lst:
-                print(f"Required courses are not satisfied for the "
-                      f"{self.name} minor.")
+                # print(f"Required courses are not satisfied for the "
+                #       f"{self.name} minor.")
                 return False
             pass
         return True
