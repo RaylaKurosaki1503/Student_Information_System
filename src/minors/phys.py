@@ -3,7 +3,8 @@ Author: Rayla Kurosaki
 
 File: phys.py
 
-Description:
+Description: This file contains the functionality to represent the Physics
+             minor. The requirements have been updated on 2022/03/09.
 """
 from minors.minor import Minor
 
@@ -70,15 +71,15 @@ class Phys(Minor):
             # If the student did not get a C- or better in this course
             if course.get_id() in ["MATH-181", "MATH-182", "PHYS-211"]:
                 if course.get_final_grade() in lst1:
-                    print(f"Prerequisites are not satisfied for the "
-                          f"{self.name} minor.")
+                    # print(f"Prerequisites are not satisfied for the "
+                    #       f"{self.name} minor.")
                     return False
                 pass
             # If the student did not get an F or better in this course
             else:
                 if course.get_final_grade() in lst2:
-                    print(f"Prerequisites are not satisfied for the "
-                          f"{self.name} minor.")
+                    # print(f"Prerequisites are not satisfied for the "
+                    #       f"{self.name} minor.")
                     return False
                 pass
             pass
@@ -98,8 +99,8 @@ class Phys(Minor):
         for course in self.req.values():
             # If the student did not pass this course
             if course.get_final_grade() in lst:
-                print(f"Required courses are not satisfied for the "
-                      f"{self.name} minor.")
+                # print(f"Required courses are not satisfied for the "
+                #       f"{self.name} minor.")
                 return False
             pass
         return True
