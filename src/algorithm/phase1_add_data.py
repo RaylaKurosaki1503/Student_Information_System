@@ -7,8 +7,7 @@ Description: This file contains all the functionality of adding data from the
              Microsoft Excel Workbook/Spreadsheet to the student's database.
 """
 
-import rayla.excel
-import algorithm as alg
+import __utils__ as utils
 import constructors as struct
 
 
@@ -22,7 +21,7 @@ def add_courses(student, workbook):
                      through.
     """
     # Get the worksheet that contains all the courses the student has taken.
-    ws = rayla.excel.get_worksheet(workbook, "courses")
+    ws = utils.get_worksheet(workbook, "courses")
     # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
         # If the row is not the first row.
@@ -49,7 +48,7 @@ def add_assignments(student, workbook):
     """
     # Get the worksheet that contains all the types of assignments for each
     # course.
-    ws = rayla.excel.get_worksheet(workbook, "assignments")
+    ws = utils.get_worksheet(workbook, "assignments")
     # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
         # If it is not the first row.
@@ -59,7 +58,7 @@ def add_assignments(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # Find the correct course.
-                if alg.is_correct_course(term, id, sxn, name, course):
+                if utils.is_correct_course(term, id, sxn, name, course):
                     # Create a new assignment type and add it to this course.
                     assignment = struct.Assignment(type, float(weight))
                     course.add_assignment(type, assignment)
@@ -98,7 +97,7 @@ def add_grades(student, workbook):
     """
     # Get the worksheet that contains all the grades of the assignments the
     # student has done.
-    ws = rayla.excel.get_worksheet(workbook, "grades")
+    ws = utils.get_worksheet(workbook, "grades")
     # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
         # If the row is not the first row.
@@ -110,7 +109,7 @@ def add_grades(student, workbook):
                 # Iterate through the courses the student has taken.
                 for course in student.get_courses():
                     # Find the correct course.
-                    if alg.is_correct_course(term, id, sxn, name, course):
+                    if utils.is_correct_course(term, id, sxn, name, course):
                         # Add the grade to the assignment type.
                         # print(i)
                         assignment = course.get_assignments()[type]
@@ -140,7 +139,7 @@ def add_extra_credit(student, workbook):
                      through.
     """
     # Get the worksheet that contains all the courses the student has taken.
-    ws = rayla.excel.get_worksheet(workbook, "extra_credit")
+    ws = utils.get_worksheet(workbook, "extra_credit")
     # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
         # If the row is not the first row.
@@ -150,7 +149,7 @@ def add_extra_credit(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if alg.is_correct_course(term, id, sxn, name, course):
+                if utils.is_correct_course(term, id, sxn, name, course):
                     # Set the extra credit the student has earned for that
                     # class.
                     course.add_extra_credit(extra_credit)
@@ -173,7 +172,7 @@ def add_grading_scale(student, workbook):
     # Initialize all the letter grades in descend order.
     letters = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-"]
     # Get the worksheet that contains all the courses the student has taken.
-    ws = rayla.excel.get_worksheet(workbook, "grading_scales")
+    ws = utils.get_worksheet(workbook, "grading_scales")
     # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
         # If the row is not the first row.
@@ -194,7 +193,7 @@ def add_grading_scale(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if alg.is_correct_course(term, id, sxn, name, course):
+                if utils.is_correct_course(term, id, sxn, name, course):
                     # Set the grading scale for that class.
                     course.set_grading_scale(grading_scale)
                     break
@@ -214,7 +213,7 @@ def add_drop_count(student, workbook):
                      through.
     """
     # Get the worksheet that contains all the types of assignments.
-    ws = rayla.excel.get_worksheet(workbook, "drop_grades")
+    ws = utils.get_worksheet(workbook, "drop_grades")
     # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
         # If it is not the first row.
@@ -224,7 +223,7 @@ def add_drop_count(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if alg.is_correct_course(term, id, sxn, name, course):
+                if utils.is_correct_course(term, id, sxn, name, course):
                     assignments = course.get_assignments()
                     assignment = assignments[type]
                     assignment.set_drop_count(count)
