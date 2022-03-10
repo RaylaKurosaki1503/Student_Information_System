@@ -114,7 +114,7 @@ class Student:
         # Print the student's degree(s).
         for major in self.majors:
             file.write(f"Major: name (degree_level) [GPA]\n")
-            file.write(f"\tSatisfied: True/False\n")
+            # file.write(f"\tSatisfied: True/False\n")
             pass
         # Print the student's minor(s).
         for minor in self.minors.values():
