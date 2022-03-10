@@ -3,9 +3,10 @@ Author: Rayla Kurosaki
 
 File: minor.py
 
-Description:
+Description: This file contains the functionality to represent a minor.
 """
-import algorithm as alg
+
+import __utils__ as utils
 
 
 class Minor:
@@ -62,7 +63,7 @@ class Minor:
 
     def filter(self):
         """
-        Removes all electives the student did nto take to fulfill the minor.
+        Removes all electives the student did not take to fulfill the minor.
         """
         # Initialize a temporary dictionary.
         temp_dict = {}
@@ -101,7 +102,7 @@ class Minor:
             total_points += course.get_points()
             pass
         # Compute the GPA for this minor.
-        self.gpa = alg.format_num_3(total_points / total_earned_credits)
+        self.gpa = utils.format_num_3(total_points / total_earned_credits)
         pass
 
     pass
