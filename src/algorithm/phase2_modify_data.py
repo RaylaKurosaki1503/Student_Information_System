@@ -10,8 +10,7 @@ Description: This file contains all the functionality of modifying data from
 
 import copy
 
-import rayla.excel
-import algorithm as alg
+import __utils__ as utils
 
 
 def modify_other(student):
@@ -24,10 +23,13 @@ def modify_other(student):
     # Iterate through the courses.
     for course in student.get_courses():
         # If a specific professor is teaching specific courses.
-        c1 = course.get_prof() == "Dawn Hollenbeck"
-        c2 = course.get_id() == "PHYS-320.01"
-        c3 = course.get_id() == "PHYS-321.01"
-        if c1 and (c2 or c3):
+        c1a = course.get_term() == "2019-2020 Fall"
+        c1b = course.get_id() == "PHYS-320"
+        c1c = course.get_section() == "01"
+        c2a = course.get_term() == "2019-2020 Spring"
+        c2b = course.get_id() == "PHYS-321"
+        c2c = course.get_section() == "01"
+        if (c1a and c1b and c1c) or (c2a and c2b and c2c):
             # Create a new assignment type that combines homeworks and
             # quizzes.
             assignments = course.get_assignments()
@@ -53,7 +55,7 @@ def overwrite_final_exam(student, workbook):
                      through.
     """
     # Get the worksheet that contains all the types of assignments.
-    ws = rayla.excel.get_worksheet(workbook, "overwrite_final_exam")
+    ws = utils.get_worksheet(workbook, "overwrite_final_exam")
     # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
         # If it is not the first row.
@@ -63,7 +65,7 @@ def overwrite_final_exam(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if alg.is_correct_course(term, id, sxn, name, course):
+                if utils.is_correct_course(term, id, sxn, name, course):
                     # If the course was University Physics 1.
                     if course.get_id() == "PHYS-211":
                         # Get the exams.
@@ -204,7 +206,7 @@ def calc_raw_grade(student):
                 pass
             else:
                 # Otherwise, compute the raw grade.
-                grade = alg.format_num_2(course_grade / total_weight)
+                grade = utils.format_num_2(course_grade / total_weight)
                 pass
             # Set the raw course grade.
             course.set_raw_grade(grade)
@@ -242,19 +244,19 @@ def special_calc(student):
         # Match the course ID and compute the new raw grade for that course.
         match course.get_id():
             case "CSCI-141.02":
-                alg.calc_CS(course, CS1)
+                utils.calc_CS(course, CS1)
             case "CSCI-142.01":
-                alg.calc_CS(course, CS2)
+                utils.calc_CS(course, CS2)
             case "ENGL-314.01":
-                alg.calc_basic(course)
+                utils.calc_basic(course)
             case "MATH-399.01":
-                alg.calc_basic(course)
+                utils.calc_basic(course)
             case "PHYS-212.06":
-                alg.calc_UP2(course)
+                utils.calc_UP2(course)
             case "CSCI-243.01":
-                alg.calc_CS(course, CS3)
+                utils.calc_CS(course, CS3)
             case "PHYS-283.01":
-                alg.calc_VnW(course)
+                utils.calc_VnW(course)
         pass
     pass
 
@@ -271,7 +273,7 @@ def raw_letter_grade(student):
         # Get the raw grade for this course.
         raw_grade = course.get_raw_grade()
         # If the raw grade is numeric.
-        if alg.is_numeric(raw_grade):
+        if utils.is_numeric(raw_grade):
             # For the special case with Math Job Seminar.
             if course.get_id == "MATH-399.01":
                 # If the numeric grade is above 70.
@@ -320,7 +322,7 @@ def overwrite_final_grade(student, workbook):
                      through.
     """
     # Get the worksheet that contains all the types of assignments.
-    ws = rayla.excel.get_worksheet(workbook, "overwrite_final_grade")
+    ws = utils.get_worksheet(workbook, "overwrite_final_grade")
     # Iterate through each row of the worksheet.
     for i, row in enumerate(ws.values):
         # If it is not the first row.
@@ -330,7 +332,7 @@ def overwrite_final_grade(student, workbook):
             # Iterate through the courses the student has taken.
             for course in student.get_courses():
                 # If this assignment belongs to this course.
-                if alg.is_correct_course(term, id, sxn, name, course):
+                if utils.is_correct_course(term, id, sxn, name, course):
                     # If there is no special condition.
                     if condition is None:
                         # Set the grade as the final grade.
@@ -372,18 +374,18 @@ def course_gpa_points(student):
     """
     # Initialize a dictionary of (letter grade, gpa) pairs.
     gpa_points = {
-        "A": alg.format_num_3(12 / 3),
-        "A-": alg.format_num_3(11 / 3),
-        "B+": alg.format_num_3(10 / 3),
-        "B": alg.format_num_3(9 / 3),
-        "B-": alg.format_num_3(8 / 3),
-        "C+": alg.format_num_3(7 / 3),
-        "C": alg.format_num_3(6 / 3),
-        "C-": alg.format_num_3(5 / 3),
-        "D+": alg.format_num_3(4 / 3),
-        "D": alg.format_num_3(3 / 3),
-        "D-": alg.format_num_3(3 / 3),
-        "F": alg.format_num_3(0 / 3)
+        "A": utils.format_num_3(12 / 3),
+        "A-": utils.format_num_3(11 / 3),
+        "B+": utils.format_num_3(10 / 3),
+        "B": utils.format_num_3(9 / 3),
+        "B-": utils.format_num_3(8 / 3),
+        "C+": utils.format_num_3(7 / 3),
+        "C": utils.format_num_3(6 / 3),
+        "C-": utils.format_num_3(5 / 3),
+        "D+": utils.format_num_3(4 / 3),
+        "D": utils.format_num_3(3 / 3),
+        "D-": utils.format_num_3(3 / 3),
+        "F": utils.format_num_3(0 / 3)
     }
     # Iterate through each course.
     for course in student.get_courses():
@@ -400,13 +402,13 @@ def course_gpa_points(student):
             # SE/NE.
             if (earned_credit == 0) or (final_grade in ["SE", "NE"]):
                 # Set the points earned for that course to be 0.
-                course.set_points(alg.format_num_3(0 / 3))
+                course.set_points(utils.format_num_3(0 / 3))
                 pass
             else:
                 # Otherwise, compute the number of points the student has
                 # earned for this course.
                 num = gpa_points[final_grade] * course.get_credit()
-                course.set_points(alg.format_num_3(num))
+                course.set_points(utils.format_num_3(num))
                 pass
             pass
         pass
@@ -450,7 +452,7 @@ def student_gpa_points(student):
             # If this is a new term, and it is not the first term.
             if not (term == current_term):
                 # Compute the term GPA.
-                term_gpa = alg.format_num_2(term_points / term_credits)
+                term_gpa = utils.format_num_2(term_points / term_credits)
                 # Add this record to the history of GPAs.
                 student.add_to_gpa_history(current_term, term_gpa)
                 # Set the current term as the term.
@@ -470,11 +472,11 @@ def student_gpa_points(student):
             pass
         pass
     # Compute the current term GPA.
-    term_gpa = alg.format_num_2(term_points / term_credits)
+    term_gpa = utils.format_num_2(term_points / term_credits)
     # Add the current term GPA to the history of GPAs.
     student.add_to_gpa_history(current_term, term_gpa)
     # Set the student's cumulative GPA.
-    student.set_gpa(alg.format_num_2(sum_points / sum_credits))
+    student.set_gpa(utils.format_num_2(sum_points / sum_credits))
     pass
 
 
