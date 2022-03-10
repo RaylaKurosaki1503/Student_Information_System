@@ -6,7 +6,7 @@ File: assignment.py
 Description: This file contains all the functionality of an assignment.
 """
 
-import algorithm as alg
+import __utils__ as utils
 
 
 class Assignment:
@@ -68,7 +68,7 @@ class Assignment:
         """
         if "/" in grade_str:
             num, denom = grade_str.split(" / ")
-            grade_num = alg.format_num_2(100 * float(num) / float(denom))
+            grade_num = utils.format_num_2(100 * float(num) / float(denom))
             self.lst_grades.append([grade_num, grade_str])
             pass
         else:
