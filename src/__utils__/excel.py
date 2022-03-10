@@ -30,9 +30,9 @@ def get_workbook(path):
 
 def save_workbook(wb, filename):
     """
-    Saves all changes to the existing workbook if the filename/path is the same
-    as the initial filename/path or creates a new workbook if the filename/path
-    is different from the initial filename/path.
+    Saves all changes to the existing workbook if the filename/path is the
+    same as the initial filename/path or creates a new workbook if the
+    filename/path is different from the initial filename/path.
 
     :param wb: Current workbook to manipulate.
     :param filename: Name of the saved workbook (filename.xlsx), or the
@@ -68,8 +68,8 @@ def get_worksheet_names(wb):
 
 def get_active_worksheet(wb):
     """
-    Gets the active worksheet of the current workbook. The active worksheet is
-    the sheet that pops up when you open the workbook.
+    Gets the active worksheet of the current workbook. The active worksheet
+    is the sheet that pops up when you open the workbook.
 
     :param wb: Current workbook to manipulate.
     :return: The active worksheet of this workbook.
@@ -141,7 +141,8 @@ def insert_empty_row(ws, i):
     Inserts an empty row at the i-th position of the current worksheet.
 
     :param ws: Current worksheet to manipulate.
-    :param i: Location of the worksheet to add the empty row (starts at pos 1).
+    :param i: Location of the worksheet to add the empty row
+              (starts at pos1).
     :return: None
     """
     ws.insert_rows(i)
@@ -175,7 +176,8 @@ def insert_empty_col(ws, i):
     Inserts an empty col at the i-th position of the current worksheet.
 
     :param ws: Current worksheet to manipulate.
-    :param i: Location of the worksheet to add the empty col (starts at pos 1).
+    :param i: Location of the worksheet to add the empty col
+              (starts at pos 1).
     :return: None
     """
     ws.insert_cols(i)
@@ -187,7 +189,8 @@ def delete_col(ws, i):
     Deletes a column at the i-th position of the current worksheet.
 
     :param ws: Current worksheet to manipulate.
-    :param i: Location of the worksheet to delete a column (starts at pos 1).
+    :param i: Location of the worksheet to delete a column
+              (starts at pos 1).
     :return: None
     """
     ws.delete_cols(i)
@@ -203,14 +206,14 @@ def get_max_cols(ws):
     """
     return ws.max_column
 
-
-def template_iter(ws):
-    """
-    Template to iterate through each row of the current worksheet
-    """
-    # Iterate through each row of the worksheet (each row is a list of values).
-    for row in ws.values:
-        # iterate through each item in a given row
-        for value in row:
-            continue
-    pass
+# def template_iter(ws):
+#     """
+#     Template to iterate through each row of the current worksheet
+#     """
+#     # Iterate through each row of the worksheet
+#     # (each row is a list of values).
+#     for row in ws.values:
+#         # iterate through each item in a given row
+#         for value in row:
+#             continue
+#     pass
