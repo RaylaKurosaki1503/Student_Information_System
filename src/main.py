@@ -10,12 +10,12 @@ Description: This program will print the student's transcript given the input
 import sys
 from os.path import exists as file_exists
 
-import rayla.excel
+import __utils__ as utils
 import algorithm as alg
 
 
 def main():
-    # Hardcode the path from source root.
+    # Hardcode the path to the file.
     path = "../data/sis.xlsx"
     # Check if the file exists
     if not file_exists(path):
@@ -25,7 +25,7 @@ def main():
         sys.exit(0)
         pass
     # Get the Excel Spreadsheet.
-    workbook = rayla.excel.get_workbook(path)
+    workbook = utils.get_workbook(path)
     # Create a new student.
     student = alg.phase0_main(workbook)
     # Add data to the student's database.
