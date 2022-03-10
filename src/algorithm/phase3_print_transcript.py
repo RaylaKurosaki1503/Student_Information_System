@@ -9,8 +9,9 @@ Description: This file contains all the functionality of printing the student's
 
 import numpy as np
 
-import logging
 import copy
+
+import __utils__ as utils
 
 
 def get_data_to_print(student):
@@ -40,91 +41,15 @@ def get_data_to_print(student):
     return data_to_print
 
 
-def get_max_len(data_to_print):
-    """
-    Computes the spacing for each column.
-
-    :param data_to_print: The data needed to be printed.
-    :return: Get the column spacing.
-    """
-    max_len = []
-    # Get the shape of the 2-d array.
-    rows, cols = np.shape(data_to_print)
-    # Get the length of the longest string in each column.
-    for i in range(cols):
-        max_len.append(len(max(data_to_print[:, i], key=len)))
-        pass
-    return max_len
-
-
-def print_boundary(f, lst):
-    """
-    Prints the top and/or bottom most borders of the transcript.
-
-    :param f: File reader.
-    :param lst: A list of numbers to determine the size of a column.
-    """
-    string = "|"
-    for i, v in enumerate(lst):
-        string += "-" * (2 + v)
-        if i + 1 == len(lst):
-            string += "|"
-            pass
-        else:
-            string += "-"
-            pass
-        pass
-    f.write(string + "\n")
-    logging.info(string)
-    pass
-
-
-def print_separator(f, lst):
-    """
-    This prints out a line that separate terms.
-
-    :param f: File reader.
-    :param lst: A list of numbers to determine the size of a column.
-    """
-    string = "|"
-    for i, v in enumerate(lst):
-        string += "-" * (2 + v)
-        if i + 1 == len(lst):
-            string += "|"
-            pass
-        else:
-            string += "+"
-            pass
-        pass
-    f.write(string + "\n")
-    logging.info(string)
-    pass
-
-
-def print_row(f, data, lst):
-    """
-    Prints out the data.
-
-    :param f: File reader.
-    :param data: Data to print out.
-    :param lst: A list of numbers to determine the size of a column.
-    """
-    string = "|"
-    for e1, e2 in zip(data, lst):
-        string += " " + e1 + " " * (e2 - len(e1)) + " |"
-    f.write(string + "\n")
-    logging.info(string)
-    pass
-
-
-def print_to_file(student, data_to_print, max_len):
+def print_to_file(student, data_to_print):
     """
     Creates a text file to print the student's transcript on.
 
     :param student: The student to manipulate.
     :param data_to_print: The data to print.
-    :param max_len: The length of each column.
     """
+    # Get the column spacing.
+    max_len = utils.get_max_len(data_to_print)
     # Write onto a file.
     with open("../data/transcript.txt", "w") as f:
         # Print the student's basic info.
@@ -132,7 +57,7 @@ def print_to_file(student, data_to_print, max_len):
         # Initialize the current term.
         curr_term = ""
         # Print the upper boundary.
-        print_boundary(f, max_len)
+        utils.print_boundary(f, max_len)
         # iterate through each row to print.
         for row in data_to_print:
             # If this is a new term.
@@ -140,16 +65,16 @@ def print_to_file(student, data_to_print, max_len):
                 # If the row is not the header.
                 if not (curr_term == ""):
                     # Print a line to separate the courses by term.
-                    print_separator(f, max_len)
+                    utils.print_separator(f, max_len)
                     pass
                 # Set the current term as the row's term.
                 curr_term = row[0]
                 pass
             # Print the details of the row.
-            print_row(f, row, max_len)
+            utils.print_row(f, row, max_len)
             pass
         # Print the lower boundary.
-        print_boundary(f, max_len)
+        utils.print_boundary(f, max_len)
         pass
     pass
 
@@ -163,8 +88,6 @@ def phase3_main(student):
     """
     # Get the data to print.
     data_to_print = get_data_to_print(student)
-    # Get the column spacing.
-    max_len = get_max_len(data_to_print)
     # Print the transcript.
-    print_to_file(student, data_to_print, max_len)
+    print_to_file(student, data_to_print)
     pass
