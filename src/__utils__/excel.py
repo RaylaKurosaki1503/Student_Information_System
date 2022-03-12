@@ -7,7 +7,6 @@ Description: This file contains easy to read functions in order to manipulate
              Workbooks (Microsoft Excel Spreadsheets).
 """
 import openpyxl.utils
-from openpyxl.utils import get_column_letter
 
 
 def create_workbook():
@@ -101,7 +100,14 @@ def copy_worksheet(workbook, worksheet):
 
 
 def delete_worksheet(workbook, worksheet_name):
-    workbook.remove_sheet(get_worksheet(workbook, worksheet_name))
+    """
+    Deletes a worksheet if it's in the workbook.
+
+    :param workbook: Current workbook to manipulate.
+    :param worksheet_name: Name of the worksheet to get.
+    """
+    if worksheet_name in get_worksheet_names(workbook):
+        workbook.remove_sheet(get_worksheet(workbook, worksheet_name))
     pass
 
 
@@ -178,6 +184,14 @@ def update_cell_value(worksheet, cell, value):
 
 
 def apply_color_scale(worksheet, cell1, cell2, color_rule):
+    """
+    Applies a color rule to a series of cells.
+
+    :param worksheet: Current worksheet to manipulate.
+    :param cell1: Starting range of the cells to manipulate.
+    :param cell2: Ending range of the cells to manipulate.
+    :param color_rule: The color rule to apply.
+    """
     worksheet.conditional_formatting.add(f"{cell1}:{cell2}", color_rule)
     pass
 
@@ -304,24 +318,24 @@ def get_max_cols(worksheet):
     return worksheet.max_column
 
 
-def autofit_column_width(worksheet, data, col_letters):
-    column_widths = []
-    for row in data:
-        for i, cell in enumerate(row):
-            if len(column_widths) > i:
-                if len(cell) > column_widths[i]:
-                    column_widths[i] = len(cell)
-                    pass
-                pass
-            else:
-                column_widths += [len(cell)]
-                pass
-            pass
-        pass
-    for column_width, col_letter in zip(column_widths, col_letters):
-        worksheet.column_dimensions[col_letter].width = column_width
-        pass
-    pass
+# def autofit_column_width(worksheet, data, col_letters):
+#     column_widths = []
+#     for row in data:
+#         for i, cell in enumerate(row):
+#             if len(column_widths) > i:
+#                 if len(cell) > column_widths[i]:
+#                     column_widths[i] = len(cell)
+#                     pass
+#                 pass
+#             else:
+#                 column_widths += [len(cell)]
+#                 pass
+#             pass
+#         pass
+#     for column_width, col_letter in zip(column_widths, col_letters):
+#         worksheet.column_dimensions[col_letter].width = column_width
+#         pass
+#     pass
 
 # def template_iter(ws):
 #     """
