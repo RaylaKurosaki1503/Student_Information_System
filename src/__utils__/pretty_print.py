@@ -6,11 +6,12 @@ File: pretty_print.py
 Description: This file contains the functionality of pretty printing data in
              the form of a table.
 """
+
+import numpy as np
+
 import copy
 import logging
 import math
-
-import numpy as np
 
 
 # def get_data_to_print(header, data):
