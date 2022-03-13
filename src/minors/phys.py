@@ -6,6 +6,7 @@ File: phys.py
 Description: This file contains the functionality to represent the Physics
              minor. The requirements have been updated on 2022/03/09.
 """
+
 from minors.minor import Minor
 
 dict_prereq = {
