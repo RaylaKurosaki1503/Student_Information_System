@@ -42,9 +42,7 @@ def get_max_len(data_to_print):
     :return: Get the column spacing.
     """
     max_len = []
-    # Get the shape of the 2-d array.
     rows, cols = np.shape(data_to_print)
-    # Get the length of the longest string in each column.
     for i in range(cols):
         max_len.append(len(max(data_to_print[:, i], key=len)))
         pass
