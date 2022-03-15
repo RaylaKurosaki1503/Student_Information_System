@@ -15,24 +15,16 @@ import algorithm as alg
 
 
 def main():
-    # Hardcode the path to the file.
     path = "../data/sis.xlsx"
-    # Check if the file exists
     if not file_exists(path):
-        # Exits the program if the file does not exist.
         print("Place your excel file in the data directory.\n"
               "Make sure it is called \"sis.xlsx\"")
         sys.exit(0)
         pass
-    # Get the Excel Spreadsheet.
     workbook = utils.get_workbook(path)
-    # Create a new student.
     student = alg.phase0_main(workbook)
-    # Add data to the student's database.
     alg.phase1_main(student, workbook)
-    # Manipulate the student's database.
     alg.phase2_main(student, workbook)
-    # Print the student's transcript.
     alg.phase3_main(student)
     print("The transcript has been printed. "
           "Look for \"transcript.txt\" in the data directory.")
