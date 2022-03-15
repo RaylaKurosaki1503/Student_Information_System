@@ -109,20 +109,15 @@ class Student:
 
         :param file: A file to write on.
         """
-        # Print the student's name
         file.write(f"Name: {self.name}\n")
-        # Print the student's degree(s).
         for major in self.majors:
             file.write(f"Major: name (degree_level) [GPA]\n")
             # file.write(f"\tSatisfied: True/False\n")
             pass
-        # Print the student's minor(s).
         for minor in self.minors.values():
             file.write(f"Minor: {minor.get_name()} [{minor.get_gpa()}]\n")
             file.write(f"\tSatisfied: {minor.is_satisfied()}\n")
             pass
-        # Print a new line to separate the student's info from the
-        # transcript.
         file.write("\n")
         pass
 
