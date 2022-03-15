@@ -53,14 +53,10 @@ def create_new_worksheet(workbook, worksheet_name, pos=None):
     :param worksheet_name: Name of the new worksheet.
     :param pos: Inserting the worksheet at position pos.
     """
-    # if the user doesn't specify a position to insert the sheet at.
     if pos is None:
-        # Insert the sheet at the end of the workbook.
         workbook.create_sheet(worksheet_name)
         pass
-    # Otherwise.
     else:
-        # Insert the sheet at the user's desired position.
         workbook.create_sheet(worksheet_name, pos)
         pass
     pass
@@ -75,13 +71,9 @@ def get_worksheet(workbook, worksheet_name=None):
     :return: The active worksheet of this workbook or the worksheet with the
              correct worksheet name.
     """
-    # If the user doesn't give a worksheet name to search for.
     if worksheet_name is None:
-        # Get the active worksheet.
         return workbook.active
-    # Otherwise.
     else:
-        # Get the worksheet with the correct worksheet name.
         if worksheet_name in get_worksheet_names(workbook):
             return workbook[worksheet_name]
         else:
