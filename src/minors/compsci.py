@@ -107,17 +107,13 @@ class Compsci(Minor):
         """
         Create an instance of a Computer Science minor.
         """
-        # Call the super class
         super().__init__("Computer Science")
-        # Initialize the courses that are prerequisites for this minor.
         for id in dict_prereq:
             self.prereq[id] = None
             pass
-        # Initialize the courses that are required for this minor.
         for id in dict_req:
             self.req[id] = None
             pass
-        # Initialize the courses that are electives for this minor.
         for id in dict_electives:
             self.electives[id] = None
             pass
@@ -131,24 +127,15 @@ class Compsci(Minor):
         :return: True if the student has passed all the prerequisite courses
                  for the Computer Science minor. False otherwise.
         """
-        # List of grades that would not satisfy fulfilling the prerequisite
         lst1 = ["D+", "D", "D-", "F", "NE"]
         lst2 = ["F", "NE"]
-        # For each prerequisite course
         for course in self.prereq.values():
-            # If the student did not get a C- or better in this course
             if course.get_id() in ["CSCI-141", "CSCI-142", "MATH-181"]:
                 if course.get_final_grade() in lst1:
-                    # Return False
-                    # print(f"Prerequisites are not satisfied for the "
-                    #       f"{self.name} minor.")
                     return False
                 pass
-            # If the student did not get an F or better in this course
             else:
                 if course.get_final_grade() in lst2:
-                    # print(f"Prerequisites are not satisfied for the "
-                    #       f"{self.name} minor.")
                     return False
                 pass
             pass
@@ -162,14 +149,9 @@ class Compsci(Minor):
         :return: True if the student has passed all the required courses for
                  the Computer Science minor. False otherwise.
         """
-        # List of grades that would not satisfy fulfilling the required course
         lst = ["F", "NE"]
-        # For each prerequisite course
         for course in self.req.values():
-            # If the student did not pass this course
             if course.get_final_grade() in lst:
-                # print(f"Required courses are not satisfied for the "
-                #       f"{self.name} minor.")
                 return False
             pass
         return True
@@ -182,12 +164,8 @@ class Compsci(Minor):
         :return: True if the student has passed 3 electives for the Computer
                  Science minor. False otherwise.
         """
-        # List of grades that would not satisfy fulfilling the required
-        # course.
         lst = ["F", "NE"]
-        # For each elective the student took.
         for course in self.electives.values():
-            # If the student failed the class.
             if course.get_final_grade() in lst:
                 return False
             pass
