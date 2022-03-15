@@ -22,37 +22,23 @@ def create_new_student(workbook):
                      through.
     :return: A student with their basic info.
     """
-    # Get the worksheet that contains the student's basic info.
     ws = utils.get_worksheet(workbook, "basic_info")
-    # Initialize some variables.
     name, majors, minors = "", {}, {}
-    # For each row in the spreadsheet.
     for row in ws.iter_rows():
-        # Unpack the row.
         type, data, degree = row[0].value, row[1].value, row[2].value
         match type:
-            # If the type of data is the student's name.
             case "Name":
-                # Set the student's name.
                 name = data
                 pass
-            # If the type of data is the student's major.
             case "Major":
-                # Set the student's major.
                 majors[data] = degree
-                # Filter through which major to set.
                 pass
-            # If the type of data is the student's minor.
             case "Minor":
-                # Set the student's minor.
                 match data:
-                    # Filter through which minor to set.
                     case "Physics":
-                        # Create a Physics minor to set.
                         minors[data] = minor.Phys()
                         pass
                     case "Computer Science":
-                        # Create a Computer Science minor to set.
                         minors[data] = minor.Compsci()
                         pass
                 pass
