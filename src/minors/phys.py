@@ -40,17 +40,13 @@ class Phys(Minor):
         """
         Create an instance of a Physics minor.
         """
-        # Call the super class
         super().__init__("Physics")
-        # Initialize the courses that are prerequisites for this minor.
         for id in dict_prereq:
             self.prereq[id] = None
             pass
-        # Initialize the courses that are required for this minor.
         for id in dict_req:
             self.req[id] = None
             pass
-        # Initialize the courses that are electives for this minor.
         for id in dict_electives:
             self.electives[id] = None
             pass
@@ -64,23 +60,15 @@ class Phys(Minor):
         :return: True if the student has passed all the prerequisite courses
                  for the Physics minor. False otherwise.
         """
-        # List of grades that would not satisfy fulfilling the prerequisite
         lst1 = ["D+", "D", "D-", "F", "NE"]
         lst2 = ["F", "NE"]
-        # For each prerequisite course
         for course in self.prereq.values():
-            # If the student did not get a C- or better in this course
             if course.get_id() in ["MATH-181", "MATH-182", "PHYS-211"]:
                 if course.get_final_grade() in lst1:
-                    # print(f"Prerequisites are not satisfied for the "
-                    #       f"{self.name} minor.")
                     return False
                 pass
-            # If the student did not get an F or better in this course
             else:
                 if course.get_final_grade() in lst2:
-                    # print(f"Prerequisites are not satisfied for the "
-                    #       f"{self.name} minor.")
                     return False
                 pass
             pass
@@ -94,14 +82,9 @@ class Phys(Minor):
         :return: True if the student has passed all the required courses for
                  the Physics minor. False otherwise.
         """
-        # List of grades that would not satisfy fulfilling the required course
         lst = ["F", "NE"]
-        # For each prerequisite course
         for course in self.req.values():
-            # If the student did not pass this course
             if course.get_final_grade() in lst:
-                # print(f"Required courses are not satisfied for the "
-                #       f"{self.name} minor.")
                 return False
             pass
         return True
@@ -114,34 +97,19 @@ class Phys(Minor):
 
         :return: True if the condition is satisfied. False otherwise.
         """
-        # List of grades that would not satisfy fulfilling the required
-        # course.
         lst = ["F", "NE"]
-        # Courses from group A.
         lst_a = ["PHYS-315", "PHYS-316", "PHYS-365", "PHYS-377"]
-        # Courses from group B.
         lst_b = ["PHYS-214", "PHYS-320", "PHYS-330", "PHYS-360", "PHYS-408",
                  "PHYS-411", "PHYS-414", "PHYS-440"]
-        # Count the number of courses the student took in each group.
         count_a, count_b = 0, 0
-        # For each elective the student took.
         for id, course in self.electives.items():
-            # If the student passed the class.
             if course.get_final_grade() not in lst:
-                # If the class is in group A.
                 if id in lst_a:
-                    # Increment the counter by 1 for this group.
                     count_a += 1
-                # If the class is in group B.
                 else:
-                    # Increment the counter by 1 for this group.
                     count_b += 1
-        # If the student has taken 3 electives with one of them in group A
-        # and at least one in group B.
         if (count_a + count_b >= 3) and ((count_a >= 1) or (count_b >= 1)):
             return True
-        # Otherwise, the student has not fulfilled the requirements to earn
-        # the Physics minor.
         else:
             return False
 
