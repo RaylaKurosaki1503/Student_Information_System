@@ -11,6 +11,7 @@ Description: This file creates a student given the information the student has
 import __utils__ as utils
 import constructors as struct
 import minors as minor
+import degrees as major
 
 
 def create_new_student(workbook):
@@ -31,7 +32,12 @@ def create_new_student(workbook):
                 name = data
                 pass
             case "Major":
-                majors[data] = degree
+                match data:
+                    case "Computational Mathematics":
+                        majors[data] = major.Cmth2017()
+                        pass
+                    case "Applied and Computational Mathematics":
+                        pass
                 pass
             case "Minor":
                 match data:
