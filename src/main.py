@@ -26,8 +26,7 @@ def main():
     alg.phase1_main(student, workbook)
     alg.phase2_main(student, workbook)
     alg.phase3_main(student)
-    print("The transcript has been printed. "
-          "Look for \"transcript.txt\" in the data directory.")
+    alg.phase4_main(student)
     pass
 
 
