@@ -279,6 +279,23 @@ def credit_earned(student):
     pass
 
 
+def course_units(student):
+    """
+    Compute the amount of units the student has earned for each course.
+
+    :param student: The student to manipulate.
+    """
+    for course in student.get_courses():
+        if course.get_final_grade() in ["SE", "PE"]:
+            course.set_units(0)
+            pass
+        else:
+            course.set_units(course.get_earned_credit())
+            pass
+        pass
+    pass
+
+
 def course_gpa_points(student):
     """
     Computes the points for each course the student has taken.
@@ -405,6 +422,7 @@ def phase2_main(student, workbook):
     raw_letter_grade(student)
     overwrite_final_grade(student, workbook)
     credit_earned(student)
+    course_units(student)
     course_gpa_points(student)
     student_gpa_points(student)
     modify_student_minors(student)
