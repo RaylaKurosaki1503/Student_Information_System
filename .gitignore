@@ -131,3 +131,4 @@ dmypy.json
 *.xml
 data/sis.xlsx
 data/transcript.txt
+data/transcript.xlsx
