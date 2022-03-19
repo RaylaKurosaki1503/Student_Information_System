@@ -26,6 +26,8 @@ class Course:
         self.name = name
         self.credit = credit
         self.earned_credit = 0
+        self.units = -1
+        self.points = -1
         self.prof = prof
         self.grading_scale = {}
         self.assignments = {}
@@ -33,7 +35,6 @@ class Course:
         self.raw_grade = -1
         self.letter_grade = "n/a"
         self.final_grade = "n/a"
-        self.points = -1
 
     def get_term(self):
         """
@@ -88,6 +89,40 @@ class Course:
         Sets the number of credits the student has earned for this course.
         """
         self.earned_credit = earned_credit
+        pass
+
+    def get_units(self):
+        """
+        Gets the units the student has earned for this course.
+
+        :return: The units the student has earned for this course.
+        """
+        return self.units
+
+    def set_units(self, units):
+        """
+        Sets the units the student has earned for this course.
+
+        :param units: The units the student has earned for this course.
+        """
+        self.units = units
+        pass
+
+    def get_points(self):
+        """
+        Gets the points the student has earned for this course.
+
+        :return: The points the student has earned for this course.
+        """
+        return self.points
+
+    def set_points(self, points):
+        """
+        Sets the points the student has earned for this course.
+
+        :param points: The points the student has earned for this course.
+        """
+        self.points = points
         pass
 
     def get_prof(self):
@@ -200,23 +235,6 @@ class Course:
         :param letter: The final grade the student has earned for this course.
         """
         self.final_grade = letter
-        pass
-
-    def get_points(self):
-        """
-        Gets the points the student has earned for this course.
-
-        :return: The points the student has earned for this course.
-        """
-        return self.points
-
-    def set_points(self, points):
-        """
-        Sets the points the student has earned for this course.
-
-        :param points: The points the student has earned for this course.
-        """
-        self.points = points
         pass
 
     pass
