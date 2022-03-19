@@ -47,6 +47,12 @@ def get_col_width(path):
 
 
 def init_new_workbook(col_widths):
+    """
+    Initializes a new Microsoft Excel Workbook with the .
+
+    :param col_widths:
+    :return:
+    """
     workbook = utils.create_workbook()
     worksheet_name = "Transcript"
     utils.create_new_worksheet(workbook, worksheet_name)
