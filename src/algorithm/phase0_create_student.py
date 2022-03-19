@@ -37,6 +37,7 @@ def create_new_student(workbook):
                         majors[data] = major.Cmth2017()
                         pass
                     case "Applied and Computational Mathematics":
+                        majors[data] = major.Cmacm()
                         pass
                 pass
             case "Minor":
