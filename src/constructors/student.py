@@ -85,11 +85,9 @@ class Student:
 
     def get_gpa_history(self):
         """
-        Get a dictionary which contains the student's GPA for each
-        term/semester.
+        Get a dictionary which contains the student's GPA for each term.
 
-        :return: A dictionary which contains the student's GPA for each
-                 term/semester.
+        :return: A dictionary which contains the student's GPA for each term.
         """
         return self.gpa_history
 
@@ -98,7 +96,7 @@ class Student:
         Adds a term-GPA pair to the student's database.
 
         :param term: The term the student earn their GPA in.
-        :param gpa: The GPA the student earned in a specific semester.
+        :param gpa: The GPA the student earned in a specific term.
         """
         self.gpa_history[term] = gpa
         pass
@@ -111,8 +109,8 @@ class Student:
         """
         file.write(f"Name: {self.name}\n")
         for major in self.majors:
-            file.write(f"Major: name (degree_level) [GPA]\n")
-            # file.write(f"\tSatisfied: True/False\n")
+            file.write(f"Major: {major.get_name()} ({major.get_degree()}) "
+                       f"[{major.get_gpa()}]\n")
             pass
         for minor in self.minors.values():
             file.write(f"Minor: {minor.get_name()} [{minor.get_gpa()}]\n")
