@@ -4,7 +4,7 @@ Author: Rayla Kurosaki
 File: phase1_add_data.py
 
 Description: This file contains all the functionality of adding data from the
-             Microsoft Excel Workbook/Spreadsheet to the student's database.
+             Microsoft Excel Workbook to the student's database.
 """
 
 import __utils__ as utils
@@ -14,11 +14,10 @@ import constructors as struct
 def add_courses(student, workbook):
     """
     Adds all the courses the student has taken from the Microsoft Excel
-    Workbook/Spreadsheet.
+    Workbook.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     ws = utils.get_worksheet(workbook, "courses")
     for i, row in enumerate(ws.values):
@@ -34,11 +33,10 @@ def add_courses(student, workbook):
 def add_assignments(student, workbook):
     """
     Adds all the types of assignments to the corresponding courses from the
-    Microsoft Excel Workbook/Spreadsheet.
+    Microsoft Excel Workbook.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     ws = utils.get_worksheet(workbook, "assignments")
     for i, row in enumerate(ws.values):
@@ -53,9 +51,9 @@ def add_assignments(student, workbook):
                     c6 = course.get_id() == "PHYS-321"
                     c7 = type == "Homework and Quiz"
                     if c4 and (c5 or c6) and c7:
-                        assignment = struct.Assignment("Homework",
-                                                       float(weight)
-                                                       )
+                        assignment = struct.Assignment(
+                            "Homework", float(weight)
+                        )
                         course.add_assignment("Homework", assignment)
                         assignment = struct.Assignment("Quiz", float(weight))
                         course.add_assignment("Quiz", assignment)
@@ -72,11 +70,10 @@ def add_grades(student, workbook):
     """
     Adds all the grades the student earned to the corresponding type of
     assignment that corresponds to the corresponding courses from the
-    Microsoft Excel Workbook/Spreadsheet.
+    Microsoft Excel Workbook.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     ws = utils.get_worksheet(workbook, "grades")
     for i, row in enumerate(ws.values):
@@ -103,11 +100,10 @@ def add_grades(student, workbook):
 def add_extra_credit(student, workbook):
     """
     Adds all the extra credit the student has earned to the corresponding
-    courses from the Microsoft Excel Workbook/Spreadsheet.
+    courses from the Microsoft Excel Workbook.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     ws = utils.get_worksheet(workbook, "extra_credit")
     for i, row in enumerate(ws.values):
@@ -126,11 +122,10 @@ def add_extra_credit(student, workbook):
 def add_grading_scale(student, workbook):
     """
     Adds the grading scale to the corresponding courses from the
-    Microsoft Excel Workbook/Spreadsheet.
+    Microsoft Excel Workbook.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     letters = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-"]
     ws = utils.get_worksheet(workbook, "grading_scales")
@@ -160,11 +155,10 @@ def add_grading_scale(student, workbook):
 def add_drop_count(student, workbook):
     """
     Add the number of assignments to drop (if any) to the corresponding
-    courses from the Microsoft Excel Workbook/Spreadsheet.
+    courses from the Microsoft Excel Workbook.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     ws = utils.get_worksheet(workbook, "drop_grades")
     for i, row in enumerate(ws.values):
@@ -184,12 +178,11 @@ def add_drop_count(student, workbook):
 
 def phase1_main(student, workbook):
     """
-    The main function to call the functions above to add data to the student's
-    database.
+    The driver function to add data from the Microsoft Excel Workbook to the
+    student's database.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     add_courses(student, workbook)
     add_assignments(student, workbook)
