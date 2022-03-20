@@ -52,8 +52,8 @@ class Assignment:
         """
         Set the list of grades for this type of assignment.
 
-        :param grades: The list of grades the student earned for this type of
-                       assignment.
+        :param grades: The list of grades the student earned for this type
+                       of assignment.
         """
         self.lst_grades = grades
         pass
