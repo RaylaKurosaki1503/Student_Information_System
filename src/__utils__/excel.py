@@ -7,10 +7,10 @@ Description: This file contains easy to read functions in order to manipulate
              Workbooks (Microsoft Excel Spreadsheets).
 """
 
-# 0.77 offset
-
 import openpyxl.utils
 from openpyxl.styles import Border, Side
+
+COLUMN_WIDTH_OFFSET = 0.77
 
 
 def create_workbook():
