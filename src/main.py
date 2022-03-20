@@ -16,7 +16,7 @@ import algorithm as alg
 
 def main():
     """
-    The driver code to run the program.
+    The driver function to run the program.
     """
     path = "../data/sis.xlsx"
     if not file_exists(path):
