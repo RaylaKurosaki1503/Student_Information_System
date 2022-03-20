@@ -60,3 +60,4 @@ def is_numeric(string):
         return True
     except ValueError:
         return False
+    pass
