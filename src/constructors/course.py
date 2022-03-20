@@ -80,7 +80,8 @@ class Course:
         """
         Gets the number of credits the student has earned for this course.
 
-        :return: The number of credits the student has earned for this course.
+        :return: The number of credits the student has earned for this
+                 course.
         """
         return self.earned_credit
 
@@ -232,7 +233,8 @@ class Course:
         """
         Sets the final grade the student has earned for this course.
 
-        :param letter: The final grade the student has earned for this course.
+        :param letter: The final grade the student has earned for this
+                       course.
         """
         self.final_grade = letter
         pass
