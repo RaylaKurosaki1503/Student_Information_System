@@ -4,8 +4,7 @@ Author: Rayla Kurosaki
 File: phase2_modify_data.py
 
 Description: This file contains all the functionality of modifying data from
-             the Microsoft Excel Workbook/Spreadsheet to the student's
-             database.
+             the Microsoft Excel Workbook to the student's database.
 """
 
 import copy
@@ -45,9 +44,8 @@ def overwrite_final_exam(student, workbook):
     """
     Overwrites exam grades under certain conditions and for certain courses.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     ws = utils.get_worksheet(workbook, "overwrite_final_exam")
     for i, row in enumerate(ws.values):
@@ -242,9 +240,8 @@ def overwrite_final_grade(student, workbook):
     """
     Overwrites the final grade that best reflects the data from SIS.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     ws = utils.get_worksheet(workbook, "overwrite_final_grade")
     for i, row in enumerate(ws.values):
@@ -407,12 +404,11 @@ def modify_student_minors(student):
 
 def phase2_main(student, workbook):
     """
-    The main function to call the functions above to perform computations
-    and modify the student's database.
+    The driver function to perform computations and modify the student's
+    database.
 
-    :param student: The student to manipulate.
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param student: The student to add data to.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     modify_other(student)
     overwrite_final_exam(student, workbook)
