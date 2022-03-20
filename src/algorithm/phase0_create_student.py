@@ -3,9 +3,8 @@ Author: Rayla Kurosaki
 
 File: phase0_create_student.py
 
-Description: This file creates a student given the information the student has
-             added on the first page of the Microsoft Excel
-             Workbook/Spreadsheet.
+Description: This file contains the functionality to create a student given
+             added on the first page of the Microsoft Excel Workbook.
 """
 
 import __utils__ as utils
@@ -19,8 +18,7 @@ def create_new_student(workbook):
     Creates an instance of a student based on the spreadsheet that contains
     the student's basic info.
 
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param workbook: The Microsoft Excel Workbook to extract teh data from..
     :return: A student with their basic info.
     """
     ws = utils.get_worksheet(workbook, "basic_info")
@@ -55,9 +53,8 @@ def create_new_student(workbook):
 
 def phase0_main(workbook):
     """
-    The main function to call the functions above to create a new student.
+    The driver function to create a new student.
 
-    :param workbook: The Microsoft Excel Workbook/Spreadsheet to parse
-                     through.
+    :param workbook: The Microsoft Excel Workbook to extract data from.
     """
     return create_new_student(workbook)
