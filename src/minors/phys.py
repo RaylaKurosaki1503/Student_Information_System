@@ -106,12 +106,18 @@ class Phys(Minor):
             if course.get_final_grade() not in lst:
                 if id in lst_a:
                     count_a += 1
+                    pass
                 else:
                     count_b += 1
+                    pass
+                pass
+            pass
         if (count_a + count_b >= 3) and ((count_a >= 1) or (count_b >= 1)):
             return True
         else:
             return False
+        pass
+    pass
 
     def is_satisfied(self):
         """
