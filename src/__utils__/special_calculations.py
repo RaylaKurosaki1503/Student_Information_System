@@ -15,12 +15,12 @@ import __utils__ as utils
 
 def calc_CS(course, lst):
     """
-    For some courses, they have a course grade limit rule. This rule comes into
-    play when the difference between your Assignments and Tests averages is
-    more than about 20%. Also, the raw grade may only be at most 10% more than
-    the average grade of the elements of your worse Assignments Component or
-    Tests Component. Courses that would use this rule include but are not
-    limited to:
+    For some courses, they have a course grade limit rule. This rule comes
+    into play when the difference between your Assignments and Tests averages
+    is more than about 20%. Also, the raw grade may only be at most 10% more
+    than the average grade of the elements of your worse Assignments
+    Component or Tests Component. Courses that would use this rule include
+    but are not limited to:
         - Computer Science I
         - Computer Science II
         - The Mechanics of Programming
@@ -64,9 +64,9 @@ def calc_CS(course, lst):
 
 def calc_basic(course):
     """
-    For some courses, the raw grade is calculated simply by computing the sum
-    of the numerators of the grades and the sum of the numerators of the
-    grades. Then dividing the two values.
+    For some courses, the raw grade is calculated simply by computing the
+    sum of the numerators of the grades and the sum of the numerators of
+    the grades. Then dividing the two values.
 
     :param course: A course the student has taken.
     """
