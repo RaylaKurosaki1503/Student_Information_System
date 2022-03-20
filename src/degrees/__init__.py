@@ -3,7 +3,7 @@ Author: Rayla Kurosaki
 
 File: __init__.py
 
-Description: The initialization file for the package degrees.
+Description: The initialization file for the package this file is in.
 """
 
 from degrees.major import *
