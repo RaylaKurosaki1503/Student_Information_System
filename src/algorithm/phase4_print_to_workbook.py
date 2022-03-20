@@ -3,7 +3,9 @@ Author: Rayla Kurosaki
 
 File: phase4_print_to_workbook.py
 
-Description:
+Description: This file contains the functionality to print the student's
+             transcript on a Microsoft Excel Workbook in a pretty and easy to
+             read format.
 """
 
 from openpyxl import styles
@@ -19,9 +21,6 @@ import __utils__ as utils
 
 CYAN = "00FFFF"
 PINK = "FFDDF4"
-
-
-# 10 cols (A:H)
 
 
 def get_col_width(path):
@@ -48,10 +47,13 @@ def get_col_width(path):
 
 def init_new_workbook(col_widths):
     """
-    Initializes a new Microsoft Excel Workbook with the .
+    Initializes a new Microsoft Excel Workbook. If there is already an output
+    Excel file, it will use the column widths from the previous file and
+    apply the column widths to the new Excel file.
 
-    :param col_widths:
-    :return:
+    :param col_widths: The size of each column from the current Microsoft
+                       Excel Workbook.
+    :return: A new Microsoft Excel Workbook.
     """
     workbook = utils.create_workbook()
     worksheet_name = "Transcript"
@@ -68,6 +70,12 @@ def init_new_workbook(col_widths):
 
 
 def add_basic_info(workbook, student):
+    """
+    Adds the student's basic information to the Excel file.
+
+    :param workbook: Excel Workbook to add data to.
+    :param student: The student to extract the data from.
+    """
     font = Font(bold=True, underline="single")
     fill_cyan = styles.PatternFill(
         start_color=CYAN, end_color=CYAN, fill_type="solid"
@@ -163,7 +171,13 @@ def add_basic_info(workbook, student):
     pass
 
 
-def get_course_data(student):
+def get_data(student):
+    """
+    Gets the data needed to print on the Excel Workbook.
+
+    :param student: The student to extract the data from.
+    :return: Course and GPA data.
+    """
     course_data, gpa_data = {}, {}
     term = ""
     lst = []
@@ -238,6 +252,12 @@ def get_course_data(student):
 
 
 def add_transcript_data(workbook, student):
+    """
+    Adds the student's course and GPA data to the Excel Workbook.
+
+    :param workbook: The Microsoft Excel Workbook to add data to.
+    :param student: THe student to extract the data from.
+    """
     font = Font(bold=True, underline="single")
     fill_cyan = styles.PatternFill(
         start_color=CYAN, end_color=CYAN, fill_type="solid"
@@ -249,7 +269,7 @@ def add_transcript_data(workbook, student):
 
     worksheet = utils.get_worksheet(workbook, "Transcript")
     r = 9 + len(student.get_majors()) + len(student.get_minors())
-    course_data, gpa_data = get_course_data(student)
+    course_data, gpa_data = get_data(student)
     header = ["Course", "Description", "Attempted", "Earned", "Grade",
               "Points"]
     old_r = copy.deepcopy(r)
@@ -323,6 +343,12 @@ def add_transcript_data(workbook, student):
 
 
 def phase4_main(student):
+    """
+    The driver function to print the student's transcript onto a Microsoft
+    Excel Workbook.
+
+    :param student: The student to manipulate.
+    """
     path = "../data/transcript.xlsx"
     col_widths = get_col_width(path)
     workbook = init_new_workbook(col_widths)
