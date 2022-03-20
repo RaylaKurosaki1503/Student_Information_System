@@ -3,8 +3,8 @@ Author: Rayla Kurosaki
 
 File: phase3_print_transcript.py
 
-Description: This file contains all the functionality of printing the student's
-             transcript.
+Description: This file contains the functionality to print a simplified
+             version of the student's transcript onto a text file.
 """
 
 import numpy as np
@@ -18,7 +18,7 @@ def get_data_to_print(student):
     """
     Gets all the necessary data to print.
 
-    :param student: The student to manipulate.
+    :param student: The student to extract data from.
     :return: The necessary data to print.
     """
     header = np.array([
@@ -37,16 +37,15 @@ def get_data_to_print(student):
     return data_to_print
 
 
-def print_to_file(student, data_to_print):
+def print_to_file(data_to_print):
     """
     Creates a text file to print the student's transcript on.
 
-    :param student: The student to manipulate.
     :param data_to_print: The data to print.
     """
     max_len = utils.get_max_len(data_to_print)
     with open("../data/transcript.txt", "w") as f:
-        student.print_student(f)
+        # student.print_student(f)
         curr_term = ""
         utils.print_boundary(f, max_len)
         for row in data_to_print:
@@ -65,11 +64,11 @@ def print_to_file(student, data_to_print):
 
 def phase3_main(student):
     """
-    The main function to call the functions above to print the student's
-    transcript.
+    The driver function to print a simplified version of the student's
+    transcript onto a text file.
 
     :param student: The student to manipulate.
     """
     data_to_print = get_data_to_print(student)
-    print_to_file(student, data_to_print)
+    print_to_file(data_to_print)
     pass
