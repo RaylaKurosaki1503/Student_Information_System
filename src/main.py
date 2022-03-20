@@ -15,6 +15,9 @@ import algorithm as alg
 
 
 def main():
+    """
+    The driver code to run the program.
+    """
     path = "../data/sis.xlsx"
     if not file_exists(path):
         print("Place your excel file in the data directory.\n"
@@ -31,5 +34,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    print("Hello Rayla!")
     pass
