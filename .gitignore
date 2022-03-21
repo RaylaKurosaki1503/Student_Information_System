@@ -127,8 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-*.iml
 *.xml
+*.iml
+data/output.xlsx
 data/sis.xlsx
 data/transcript.txt
-data/transcript.xlsx
