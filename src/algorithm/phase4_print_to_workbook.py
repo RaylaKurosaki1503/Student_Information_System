@@ -37,7 +37,7 @@ def get_col_width(path):
         col_widths = []
         workbook = utils.get_workbook(path)
         worksheet = utils.get_worksheet(workbook, "Transcript")
-        for i in range(1, n + 1):
+        for i in range(1, utils.get_max_cols(worksheet) + 1):
             col_letter = get_column_letter(i)
             col_widths.append(worksheet.column_dimensions[col_letter].width)
             pass
@@ -60,9 +60,9 @@ def init_new_workbook(col_widths):
     utils.create_new_worksheet(workbook, worksheet_name)
     worksheet = utils.get_worksheet(workbook, worksheet_name)
     if col_widths is not None:
-        for i, width in enumerate(col_widths):
+        for i, col_width in enumerate(col_widths):
             col_letter = get_column_letter(i + 1)
-            worksheet.column_dimensions[col_letter].width = width
+            worksheet.column_dimensions[col_letter].width = col_width
             pass
         pass
     utils.delete_worksheet(workbook, "Sheet")
@@ -290,9 +290,13 @@ def add_transcript_data(workbook, student):
         r += 1
         for course_data in data_set:
             for j in range(3, 8 + 1):
-                c = get_column_letter(j)
+                cell_loc = f"{get_column_letter(j)}{r}"
                 val = course_data[j - 3]
-                utils.update_cell_value(worksheet, f"{c}{r}", val)
+                utils.update_cell_value(worksheet, cell_loc, val)
+                if type(val) == float:
+                    cell = utils.get_cell(worksheet, cell_loc)
+                    cell.number_format = '0.000'
+                    pass
                 pass
             r += 1
             pass
@@ -349,8 +353,9 @@ def phase4_main(student):
 
     :param student: The student to manipulate.
     """
-    path = "../data/transcript.xlsx"
+    path = "../data/output.xlsx"
     col_widths = get_col_width(path)
+    print(col_widths)
     workbook = init_new_workbook(col_widths)
     add_basic_info(workbook, student)
     add_transcript_data(workbook, student)
