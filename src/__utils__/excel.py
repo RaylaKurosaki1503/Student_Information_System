@@ -10,7 +10,7 @@ Description: This file contains easy to read functions in order to manipulate
 import openpyxl.utils
 from openpyxl.styles import Border, Side
 
-COLUMN_WIDTH_OFFSET = 0.77
+COLUMN_WIDTH_OFFSET = 0.77734375
 
 
 def create_workbook():
