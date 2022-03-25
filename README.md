@@ -84,7 +84,8 @@ The following are instructions I would give to other experienced programmers. If
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-I have provided two Microsoft Excel Workbooks, [sis_example.xlsx](data/sis_example.xlsx) and [sis_template.xlsx](data/sis_template.xlsx). The purpose of [sis_example.xlsx](data/sis_example.xlsx) is to not only see how the data is organized and formatted, but to also see the output of the program when using that as the file to parse through. The [sis_template.xlsx](data/sis_template.xlsx) file is a blank version of [sis_example.xlsx](data/sis_example.xlsx) so a user can record their data. Please make sure to rename the file from "sis_template.xlsx" to "sis.xlsx".
+
+[//]: # (I have provided two Microsoft Excel Workbooks, [sis_example.xlsx]&#40;data/sis_example.xlsx&#41; and [sis_template.xlsx]&#40;data/sis_template.xlsx&#41;. The purpose of [sis_example.xlsx]&#40;data/sis_example.xlsx&#41; is to not only see how the data is organized and formatted, but to also see the output of the program when using that as the input file. The [sis_template.xlsx]&#40;data/sis_template.xlsx&#41; file is a blank version of [sis_example.xlsx]&#40;data/sis_example.xlsx&#41; so a user can record their data. Please make sure to rename the file from "sis_template.xlsx" to "sis.xlsx".)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
