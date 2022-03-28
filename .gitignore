@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 *.xml
 *.iml
-data/output.xlsx
 data/sis.xlsx
-data/transcript.txt
+output/grades.txt
+output/transcript.xlsx
