@@ -353,7 +353,7 @@ def phase4_main(student):
 
     :param student: The student to manipulate.
     """
-    path = "../data/output.xlsx"
+    path = "../output/transcript.xlsx"
     col_widths = get_col_width(path)
     print(col_widths)
     workbook = init_new_workbook(col_widths)
