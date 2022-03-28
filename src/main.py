@@ -1,7 +1,7 @@
 """
 Author: Rayla Kurosaki
 
-File: main.py
+File: example.py
 
 Description: This program will print the student's transcript given the input
              file "sis.xlsx".
@@ -18,18 +18,19 @@ def main():
     """
     The driver function to run the program.
     """
-    path = "../data/sis.xlsx"
+    filename = "sis"
+    path = f"../data/{filename}.xlsx"
     if not file_exists(path):
-        print("Place your excel file in the data directory.\n"
-              "Make sure it is called \"sis.xlsx\"")
+        print(f"Place your excel file in the data directory.\n"
+              f"Make sure it is called \"{filename}.xlsx\"")
         sys.exit(0)
         pass
     workbook = utils.get_workbook(path)
     student = alg.phase0_main(workbook)
     alg.phase1_main(student, workbook)
     alg.phase2_main(student, workbook)
-    alg.phase3_main(student)
-    alg.phase4_main(student)
+    alg.phase3_main(student, "grades")
+    alg.phase4_main(student, "transcript")
     pass
 
 
