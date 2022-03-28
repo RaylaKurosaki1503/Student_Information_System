@@ -44,8 +44,7 @@ def print_to_file(data_to_print):
     :param data_to_print: The data to print.
     """
     max_len = utils.get_max_len(data_to_print)
-    with open("../data/transcript.txt", "w") as f:
-        # student.print_student(f)
+    with open("../output/grades.txt", "w") as f:
         curr_term = ""
         utils.print_boundary(f, max_len)
         for row in data_to_print:
