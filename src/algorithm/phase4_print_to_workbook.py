@@ -346,14 +346,15 @@ def add_transcript_data(workbook, student):
     pass
 
 
-def phase4_main(student):
+def phase4_main(student, filename):
     """
     The driver function to print the student's transcript onto a Microsoft
     Excel Workbook.
 
     :param student: The student to manipulate.
+    :param filename: Name of the file.
     """
-    path = "../output/transcript.xlsx"
+    path = f"../output/{filename}.xlsx"
     col_widths = get_col_width(path)
     print(col_widths)
     workbook = init_new_workbook(col_widths)
