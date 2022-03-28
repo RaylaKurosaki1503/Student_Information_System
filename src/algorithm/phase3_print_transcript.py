@@ -37,14 +37,15 @@ def get_data_to_print(student):
     return data_to_print
 
 
-def print_to_file(data_to_print):
+def print_to_file(data_to_print, path):
     """
     Creates a text file to print the student's transcript on.
 
     :param data_to_print: The data to print.
+    :param path: Path of the file.
     """
     max_len = utils.get_max_len(data_to_print)
-    with open("../output/grades.txt", "w") as f:
+    with open(path, "w") as f:
         curr_term = ""
         utils.print_boundary(f, max_len)
         for row in data_to_print:
@@ -61,13 +62,15 @@ def print_to_file(data_to_print):
     pass
 
 
-def phase3_main(student):
+def phase3_main(student, filename):
     """
     The driver function to print a simplified version of the student's
     transcript onto a text file.
 
     :param student: The student to manipulate.
+    :param filename: Name of the file.
     """
+    path = f"../output/{filename}.txt"
     data_to_print = get_data_to_print(student)
-    print_to_file(data_to_print)
+    print_to_file(data_to_print, path)
     pass
